@@ -1,32 +1,69 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+  <div class="flex w-screen">
+    <!-- Backdrop -->
+    <!-- <div
+      class="md:hidden fixed right-0 w-full h-screen md:bg-darkBlue bg-gray-400 bg-opacity-[0.6] z-10 transition-width ease-in-out duration-75"
+      v-show="isShow"
+      @click="toggleMenu"
+    ></div> -->
+    <!-- SideBar -->
+    <Sidebar :isShow="isShow" @close-sidebar="closeSidebar" />
+    <main class="" :class="!isShow ? 'w-full' : 'w-full '">
+      <div class="h-[50px] bg-lightBlue flex items-center">
+        <div class="flex justify-between w-full">
+          <div class="flex items-center space-x-2">
+            <div
+              class="h-[50px] flex items-center px-4 hover:bg-gray-300 cursor-pointer text-titleTextColor"
+              @click="toggleMenu"
+            >
+              <i
+                :class="
+                  isShow
+                    ? 'bx bx-left-indent text-3xl'
+                    : 'bx bx-right-indent text-3xl'
+                "
+              ></i>
+            </div>
+            <span class="text-md font-semibold text-titleTextColor"
+              >Merhaba Volkan</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="p-2 h-[calc(100vh-50px)]">
+        <div class="h-full p-1">
+          <router-view />
+        </div>
+      </div>
+    </main>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import Sidebar from "@/components/sidebar.vue";
+export default {
+  components: {
+    Sidebar,
+  },
+  data() {
+    return {
+      isShow: this.$store.state.isSidebar,
+    };
+  },
+  methods: {
+    toggleMenu() {
+      this.isShow = !this.isShow;
+      console.log(this.$store.state.isSidebar);
+    },
+    closeSidebar() {
+      this.isShow = false;
+    },
+  },
+  created() {
+    console.log(this.$store.state.isSidebar);
+  },
+};
+</script>
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+<style></style>
+@/components/sidebar.vue

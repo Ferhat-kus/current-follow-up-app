@@ -1,26 +1,55 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import signupPage from '../views/loginPage/signupPage/index.vue';
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+ {
+   path: '/',
+   name: 'SignUp',
+   component: signupPage,
+ },
+ {
+   path: '/signin',
+   name: 'SignIn',
+   component: () => import('../views/loginPage/signinPage/index.vue'),
+ },
+ {
+  path: '/setuppage',
+  name: 'Setuppage',
+  component: () => import('../views/loginPage/signupPage/setupPage.vue'),
+ },
+ {
+  path: '/companies',
+  name: 'Companies',
+  component: () => import('../views/homePage/companiesPage/index.vue'),
+ },
+ {
+  path: '/bills',
+  name: 'Bills',
+  component: () => import('../views/homePage/billsPage/index.vue'),
+ },
+ {
+  path: '/contracts',
+  name: 'Contracts',
+  component: () => import('../views/homePage/contractsPage/index.vue'),
+ },
+ {
+  path: '/users',
+  name: 'Users',
+  component: () => import('../views/homePage/usersPage/index.vue'),
+ },
+ {
+  path: '/settings',
+  name: 'Settings',
+  component: () => import('../views/homePage/settingsPage/index.vue'),
+ },
 ]
 
 const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes
 })
 
