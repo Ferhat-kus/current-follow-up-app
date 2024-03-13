@@ -4,7 +4,7 @@
     <div class="md:overflow-x-auto">
       <div class="w-full inline-block align-middle">
         <div
-          class="md:overflow-y-scroll md:overflow-x-hidden md:h-[351px] h-80 overflow-scroll border-darkBlue border-2 rounded-lg"
+          class="md:overflow-y-scroll md:overflow-x-clip md:h-[351px] h-80 overflow-scroll border-darkBlue border-2 rounded-lg"
         >
           <table class="min-w-full divide-y divide-gray-200">
             <!-- Tablo başlığı -->
@@ -22,12 +22,9 @@
             </thead>
             <!-- Tablo içeriği -->
             <tbody class="divide-y divide-gray-200 cursor-pointer">
-              <tr
-                @click="onRowClicked"
-                v-for="(items, index) in displayedItems"
-                :key="index"
-              >
+              <tr v-for="(items, index) in displayedItems" :key="index">
                 <th
+                  @click="onRowClicked"
                   scope="col"
                   class="px-6 py-3 text-xs font-semibold text-left text-textColor border-b border-darkBlue"
                   v-for="(item, index) in items"
@@ -35,7 +32,7 @@
                 >
                   {{ item }}
                 </th>
-                <th class="border-b border-darkBlue">
+                <th @click="detailClicked" class="border-b border-darkBlue">
                   <img class="w-5" src="@/assets/icons/edit.svg" alt="" />
                 </th>
                 <th v-show="show" class="border-b border-darkBlue">
@@ -50,29 +47,29 @@
     <!-- Sayfa sayısı ve pagination -->
     <div class="flex justify-between mt-2">
       <div>Toplam {{ totalPages }} sayfa var</div>
-      <div class="flex ">
+      <div class="flex">
         <button
           @click="goToPreviousPage"
           :disabled="currentPage === 1"
-          class="px-3 py-1 rounded-l-md  text-white   bg-opacBlue hover:text-white"
+          class="px-3 py-1 rounded-l-md text-white bg-opacBlue hover:text-white"
         >
-        <img src="@/assets/icons/leftarrow.svg" alt="">
+          <img src="@/assets/icons/leftarrow.svg" alt="" />
         </button>
         <button
           v-for="pageNumber in totalPages"
           :key="pageNumber"
           @click="setCurrentPage(pageNumber)"
           :class="{ 'bg-darkBlue text-white': pageNumber === currentPage }"
-          class="px-3 py-1  bg-[#7d85c5]  hover:bg-darkBlue  text-white"
+          class="px-3 py-1 bg-[#7d85c5] hover:bg-darkBlue text-white"
         >
           {{ pageNumber }}
         </button>
         <button
           @click="goToNextPage"
           :disabled="currentPage === totalPages"
-          class="px-3 py-1 rounded-r-md  bg-opacBlue hover:text-white"
+          class="px-3 py-1 rounded-r-md bg-opacBlue hover:text-white"
         >
-          <img src="@/assets/icons/rightarrow.svg" alt="">
+          <img src="@/assets/icons/rightarrow.svg" alt="" />
         </button>
       </div>
     </div>
@@ -122,6 +119,9 @@ export default {
   methods: {
     onRowClicked() {
       this.$emit("row-clicked");
+    },
+    detailClicked() {
+      this.$emit("detail-clicked");
     },
     // Sayfayı değiştirir
     setCurrentPage(pageNumber) {

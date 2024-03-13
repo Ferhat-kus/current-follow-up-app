@@ -12,7 +12,7 @@
             :src="require('@/assets/icons/plus.svg')"
             to="#"
             title="Ekle"
-            @button-click="contractModals"
+            @button-click="openContractModal"
           />
         </div>
         <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
@@ -33,18 +33,30 @@
           'sözleşme bedeli',
           '',
         ]"
-        :bodycolumns="data"
-        @row-clicked="contractModalsDetail"
+        :bodycolumns="contract"
+        @row-clicked="openContractDetailModal"
+        @detail-clicked="openContractDetailModal"
       />
+      <customModal
+        header-title="Sözleşme Ekle"
+        ref="contractModalForms"
+        name="contracts"
+      >
+        <template v-slot:form>
+          <contractModalForm @close="closeContractModal" />
+        </template>
+      </customModal>
+
+      <customModal
+        header-title="Sözleşme Detayı"
+        ref="contractDetailModalForms"
+        name="contractsDetail"
+      >
+        <template v-slot:form>
+          <contractDetailModalForm @close="closeContractDetailModal" />
+        </template>
+      </customModal>
     </div>
-    <contractModal
-      @changeModalVisibility="(val) => (contractModalVisibility = val)"
-      :contractModalVisibility="contractModalVisibility"
-    />
-    <contractModalDetail
-      @changeModalVisibility="(val) => (contractModalDetailVisibility = val)"
-      :contractModalDetailVisibility="contractModalDetailVisibility"
-    />
   </div>
 </template>
 
@@ -54,8 +66,10 @@ import Button from "@/components/button.vue";
 import searchInput from "@/components/searchInput.vue";
 import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
-import contractModal from "./components/contractModal.vue";
-import contractModalDetail from "./components/contractModalDetail.vue";
+import contractModalForm from "./components/contractModalForm.vue";
+import contractDetailModalForm from "./components/contractDetailModalForm.vue";
+import customModal from "@/components/customModal.vue";
+import { api } from "@/networking/AxiosInstance.js";
 export default {
   components: {
     pageTitle,
@@ -63,72 +77,38 @@ export default {
     Button,
     searchInput,
     filterButton,
-    contractModal,
-    contractModalDetail
+    customModal,
+    contractModalForm,
+    contractDetailModalForm,
   },
   data() {
     return {
-      contractModalDetailVisibility: false,
-      contractModalVisibility: false,
-      data: [
-        {
-          id: 1,
-          date: "2021/01/01",
-          time: "2025/01/01",
-          description: "sözleşme...",
-          amount: "10.000 TL",
-        },
-        {
-          id: 1,
-          date: "2021/01/01",
-          time: "2025/01/01",
-          description: "sözleşme...",
-          amount: "10.000 TL",
-        },
-        {
-          id: 1,
-          date: "2021/01/01",
-          time: "2025/01/01",
-          description: "sözleşme...",
-          amount: "10.000 TL",
-        },
-        {
-          id: 1,
-          date: "2021/01/01",
-          time: "2025/01/01",
-          description: "sözleşme...",
-          amount: "10.000 TL",
-        },
-        {
-          id: 1,
-          date: "2021/01/01",
-          time: "2025/01/01",
-          description: "sözleşme...",
-          amount: "10.000 TL",
-        },
-        {
-          id: 1,
-          date: "2021/01/01",
-          time: "2025/01/01",
-          description: "sözleşme...",
-          amount: "10.000 TL",
-        },
-        {
-          id: 1,
-          date: "2021/01/01",
-          time: "2025/01/01",
-          description: "sözleşme...",
-          amount: "10.000 TL",
-        },
-      ],
+      contract: [],
     };
   },
+  created() {
+    this.getContract();
+  },
   methods: {
-    contractModals() {
-      this.contractModalVisibility = !this.contractModalVisibility;
+    async getContract() {
+      try {
+        const response = await api().get("/contract");
+        this.contract = response.data;
+      } catch (error) {
+        console.error(error);
+      }
     },
-    contractModalsDetail() {
-      this.contractModalDetailVisibility =!this.contractModalDetailVisibility;
+    openContractModal() {
+      this.$refs.contractModalForms.show("contracts");
+    },
+    closeContractModal() {
+      this.$refs.contractModalForms.hide("contracts");
+    },
+    openContractDetailModal() {
+      this.$refs.contractDetailModalForms.show("contractsDetail");
+    },
+    closeContractDetailModal() {
+      this.$refs.contractDetailModalForms.hide("contractsDetail");
     },
   },
 };

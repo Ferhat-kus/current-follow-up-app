@@ -12,7 +12,7 @@
             :src="require('@/assets/icons/plus.svg')"
             to="#"
             title="Ekle"
-            @button-click="toggleModal"
+            @button-click="openAddModal"
           />
         </div>
         <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
@@ -29,30 +29,29 @@
         :headercolumns="[
           '#',
           'firma adı',
+          'Firma Adresi',
           'telefon no',
           'mail',
+          'Vergi Adresi',
           'vergi no',
           'bakiye',
           '',
         ]"
-        :bodycolumns="data"
-        @row-clicked="detailModals"
+        :bodycolumns="companies"
+        @row-clicked="detail"
+        @detail-clicked="openDetailmodalComponent"
       />
       <!-- models -->
-      <addModal
-        @contractModalVisibility="contractModals"
-        @changeModalVisibility="(val) => (modalVisible = val)"
-        :modal-visible="modalVisible"
-      />
-      <detailModal
-        @contractModalVisibility="contractModals"
-        @changeModalVisibility="(val) => (detailModalVisible = val)"
-        :detailModalVisible="detailModalVisible"
-      />
-      <contractModal
-        @changeModalVisibility="(val) => (contractModalVisibility = val)"
-        :contractModalVisibility="contractModalVisibility"
-      />
+      <customModal header-title="Firma Ekle" ref="modalComponent" name="add">
+        <template v-slot:form>
+          <companiesModal @close="closeAddModal" />
+        </template>
+      </customModal>
+      <customModal header-title="Firma Detayları" ref="detailmodalComponent" name="detail">
+        <template v-slot:form>
+          <companiesModal @close="closeDetailmodalComponent" />
+        </template>
+      </customModal>
     </div>
   </div>
 </template>
@@ -60,138 +59,66 @@
 <script>
 import pageTitle from "@/components/pageTitle.vue";
 import Button from "@/components/button.vue";
+import Input from "@/components/input.vue";
 import searchInput from "@/components/searchInput.vue";
 import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
-import addModal from "./components/addModal.vue";
-import detailModal from "./components/detailModal.vue";
-import contractModal from "@/views/homePage/contractsPage/components/contractModal.vue";
+import companiesModal from "./components/companiesModal.vue";
+import customModal from "@/components/customModal.vue";
+import { api } from "@/networking/AxiosInstance.js";
 export default {
   components: {
+    companiesModal,
     pageTitle,
     Table,
     Button,
+    Input,
     searchInput,
     filterButton,
-    addModal,
-    detailModal,
-    contractModal,
+    customModal,
   },
   data() {
     return {
-      contractModalVisibility: false,
-      detailModalVisible: false,
-      modalVisible: false,
-      data: [
-        {
-          id: 1,
-          firmaadi: "Sirius",
-          telefonno: "05372700415",
-          mail: "55ferhat.kus@gmail.com",
-          vergiNo: "123456789101",
-          bakiye: "1.000.00",
-        },
-        {
-          id: 2,
-          firmaadi: "Sirius",
-          telefonno: "05372700415",
-          mail: "55ferhat.kus@gmail.com",
-          vergiNo: "123456789101",
-          bakiye: "1.000.00",
-        },
-        {
-          id: 3,
-          firmaadi: "Sirius",
-          telefonno: "05372700415",
-          mail: "55ferhat.kus@gmail.com",
-          vergiNo: "123456789101",
-          bakiye: "1.000.00",
-        },
-        {
-          id: 4,
-          firmaadi: "Sirius",
-          telefonno: "05372700415",
-          mail: "55ferhat.kus@gmail.com",
-          vergiNo: "123456789101",
-          bakiye: "1.000.00",
-        },
-        {
-          id: 5,
-          firmaadi: "Sirius",
-          telefonno: "05372700415",
-          mail: "55ferhat.kus@gmail.com",
-          vergiNo: "123456789101",
-          bakiye: "1.000.00",
-        },
-        {
-          id: 6,
-          firmaadi: "Sirius",
-          telefonno: "05372700415",
-          mail: "55ferhat.kus@gmail.com",
-          vergiNo: "123456789101",
-          bakiye: "1.000.00",
-        },
-        {
-          id: 7,
-          firmaadi: "Sirius",
-          telefonno: "05372700415",
-          mail: "55ferhat.kus@gmail.com",
-          vergiNo: "123456789101",
-          bakiye: "1.000.00",
-        },
-        {
-          id: 8,
-          firmaadi: "Sirius",
-          telefonno: "05372700415",
-          mail: "55ferhat.kus@gmail.com",
-          vergiNo: "123456789101",
-          bakiye: "1.000.00",
-        },
-        {
-          id: 9,
-          firmaadi: "Sirius",
-          telefonno: "05372700415",
-          mail: "55ferhat.kus@gmail.com",
-          vergiNo: "123456789101",
-          bakiye: "1.000.00",
-        },
-        {
-          id: 10,
-          firmaadi: "Sirius",
-          telefonno: "05372700415",
-          mail: "55ferhat.kus@gmail.com",
-          vergiNo: "123456789101",
-          bakiye: "1.000.00",
-        },
-        {
-          id: 11,
-          firmaadi: "Sirius",
-          telefonno: "05372700415",
-          mail: "55ferhat.kus@gmail.com",
-          vergiNo: "123456789101",
-          bakiye: "1.000.00",
-        },
-        {
-          id: 12,
-          firmaadi: "Sirius",
-          telefonno: "05372700415",
-          mail: "55ferhat.kus@gmail.com",
-          vergiNo: "123456789101",
-          bakiye: "1.000.00",
-        },
-      ],
+      // listeleme
+      companies: [],
     };
   },
+  created() {
+    this.getCompanies();
+  },
   methods: {
-    toggleModal() {
-      this.modalVisible = !this.modalVisible;
+    async getCompanies() {
+      try {
+        const response = await api().get("/companies");
+        this.companies = response.data;
+      } catch (error) {
+        console.error(error);
+      }
     },
-    detailModals() {
-      this.detailModalVisible = !this.detailModalVisible;
+    openAddModal() {
+      this.$refs.modalComponent.show("add");
     },
-    contractModals() {
-      this.contractModalVisibility = !this.contractModalVisibility;
+    closeAddModal() {
+      this.$refs.modalComponent.hide("add");
     },
+    openDetailmodalComponent() {
+      this.$refs.detailmodalComponent.show("detail");
+    },
+    closeDetailmodalComponent() {
+      this.$refs.detailmodalComponent.hide("detail");
+    },
+    detail() {
+      if (this.$route.path !== "/bills") {
+        this.$router.push("/bills"); // bills sayfasına yönlendir
+      }
+    },
+
+    // updateModal(){
+    // data = this.companies,
+    // openUpdateModal(data) {
+    //   this.$refs.modalComponent.show("update", data);
+    //   // }
+    // },
   },
 };
 </script>

@@ -12,7 +12,7 @@
             :src="require('@/assets/icons/plus.svg')"
             to="#"
             title="ODM Ekle"
-            @button-click="odmModalVisible"
+            @button-click="openOdmModalComponent"
           />
           <Button
             :img-show="true"
@@ -20,7 +20,7 @@
             :src="require('@/assets/icons/plus.svg')"
             to="#"
             title="Ekle"
-            @button-click="AddmodalVisibility"
+            @button-click="openBillsAddModalComponent"
           />
         </div>
         <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
@@ -41,25 +41,45 @@
           'ödeme tarihi',
           '',
         ]"
-        :bodycolumns="data"
-        @row-clicked="modalVisibility"
+        :bodycolumns="bills"
+        @row-clicked="openBillsDetailModalComponent"
+        @detail-clicked="openBillsDetailModalComponent"
       />
-      <billsAdd @modalVisible="AddmodalVisibility" :modalVisible="Addmodal" />
-      <billsDetail
-        @cancelModalVisible="cancelModal"
-        @modalVisible="modalVisibility"
-        :modalVisible="modalVisible"
-      />
-
-      <odmAdd
-        @cancelmodalVisible="cancelModal"
-        @modalVisible="odmModalVisible"
-        :odmModalVisible="odmModal"
-      />
-      <cancelModal
-        @modalVisible="(val) => (cancelModalVisible = val)"
-        :cancelModalVisible="cancelModalVisible"
-      />
+      <!-- Fatura Ekle -->
+      <customModal header-title="Fatura Ekle" ref="modalComponent" name="add">
+        <template v-slot:form>
+          <billsAddForm @close="closeBillsAddModalComponent" />
+        </template>
+      </customModal>
+      <!-- Fatura Detayı -->
+      <customModal
+        header-title="Fatura Detayı"
+        ref="detailModalComponent"
+        name="detail"
+      >
+        <template v-slot:form>
+          <billsDetailForm
+            @save="openCancelModalComponent"
+            @close="closeBillsDetailModalComponent"
+          />
+        </template>
+      </customModal>
+      <!-- İptal Modal -->
+      <customModal
+        header-title="İptal Nedeni"
+        ref="cancelModalComponent"
+        name="cancel"
+      >
+        <template v-slot:form>
+          <cancelForm @close="closeCancelModalComponent" />
+        </template>
+      </customModal>
+      <!-- Ödeme Modal -->
+      <customModal header-title="Ödeme Ekle" ref="odmModalComponent" name="odm">
+        <template v-slot:form>
+          <odmAddForm @close="closeOdmModalComponent" />
+        </template>
+      </customModal>
     </div>
   </div>
 </template>
@@ -70,10 +90,12 @@ import Button from "@/components/button.vue";
 import searchInput from "@/components/searchInput.vue";
 import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
-import billsDetail from "./components/billsDetail.vue";
-import billsAdd from "./components/billsAdd.vue";
-import cancelModal from "./components/cancelModal.vue";
-import odmAdd from "./components/odmAdd.vue";
+import customModal from "@/components/customModal.vue";
+import billsAddForm from "./components/billsAddForm.vue";
+import odmAddForm from "./components/odmAddForm.vue";
+import billsDetailForm from "./components/billsDetailForm.vue";
+import cancelForm from "./components/cancelForm.vue";
+import { api } from "@/networking/AxiosInstance.js";
 export default {
   components: {
     pageTitle,
@@ -81,89 +103,57 @@ export default {
     Button,
     searchInput,
     filterButton,
-    billsDetail,
-    billsAdd,
-    cancelModal,
-    odmAdd,
+    customModal,
+    billsAddForm,
+    odmAddForm,
+    billsDetailForm,
+    cancelForm,
   },
   data() {
     return {
-      modalVisible: false,
-      cancelModalVisible: false,
-      Addmodal: false,
-      odmModal: false,
-      data: [
-        {
-          id: 1,
-          faturaTutar: "1.000.00 TL",
-          faturaNo: "123456789",
-          faturaTarihi: "2021/01/01",
-          odemeTarihi: "2021/01/01",
-        },
-        {
-          id: 1,
-          faturaTutar: "1.000.00 TL",
-          faturaNo: "123456789",
-          faturaTarihi: "2021/01/01",
-          odemeTarihi: "2021/01/01",
-        },
-        {
-          id: 1,
-          faturaTutar: "1.000.00 TL",
-          faturaNo: "123456789",
-          faturaTarihi: "2021/01/01",
-          odemeTarihi: "2021/01/01",
-        },
-        {
-          id: 1,
-          faturaTutar: "1.000.00 TL",
-          faturaNo: "123456789",
-          faturaTarihi: "2021/01/01",
-          odemeTarihi: "2021/01/01",
-        },
-        {
-          id: 1,
-          faturaTutar: "1.000.00 TL",
-          faturaNo: "123456789",
-          faturaTarihi: "2021/01/01",
-          odemeTarihi: "2021/01/01",
-        },
-        {
-          id: 1,
-          faturaTutar: "1.000.00 TL",
-          faturaNo: "123456789",
-          faturaTarihi: "2021/01/01",
-          odemeTarihi: "2021/01/01",
-        },
-        {
-          id: 1,
-          faturaTutar: "1.000.00 TL",
-          faturaNo: "123456789",
-          faturaTarihi: "2021/01/01",
-          odemeTarihi: "2021/01/01",
-        },
-        {
-          id: 1,
-          faturaTutar: "1.000.00 TL",
-          faturaNo: "123456789",
-          faturaTarihi: "2021/01/01",
-          odemeTarihi: "2021/01/01",
-        },
-      ],
+      bills: [],
     };
   },
+  created() {
+    this.getBills();
+  },
   methods: {
-    modalVisibility() {
-      this.modalVisible = !this.modalVisible;
+    async getBills() {
+      try {
+        const response = await api().get("/bills");
+        this.bills = response.data;
+      } catch (error) {
+        console.error(error);
+      }
     },
-    AddmodalVisibility() {
-      this.Addmodal = !this.Addmodal;
+    openBillsAddModalComponent() {
+      this.$refs.modalComponent.show("add");
     },
-    cancelModal() {
-      this.cancelModalVisible = !this.cancelModalVisible;
+    closeBillsAddModalComponent() {
+      this.$refs.modalComponent.hide("add");
     },
-    odmModalVisible() {
-      this.odmModal = !this.odmModal;
+
+    openBillsDetailModalComponent() {
+      this.$refs.detailModalComponent.show("detail");
+    },
+    closeBillsDetailModalComponent() {
+      this.$refs.detailModalComponent.hide("detail");
+    },
+
+    openOdmModalComponent() {
+      this.$refs.odmModalComponent.show("odm");
+    },
+    closeOdmModalComponent() {
+      this.$refs.odmModalComponent.hide("odm");
+    },
+
+    openCancelModalComponent() {
+      this.$refs.detailModalComponent.hide("detail");
+      this.$refs.cancelModalComponent.show("cancel");
+    },
+    closeCancelModalComponent() {
+      this.$refs.detailModalComponent.show("detail");
+      this.$refs.cancelModalComponent.hide("cancel");
     },
   },
 };

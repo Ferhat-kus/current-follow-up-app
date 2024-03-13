@@ -1,24 +1,4 @@
 <template>
-  <div
-    v-show="contractModalDetailVisibility"
-    @click="closeModal"
-    class="flex justify-center items-center absolute z-50 top-0 left-0 w-full h-full bg-slate-300 bg-opacity-50"
-  >
-    <div
-      @click.stop
-      class="bg-white md:w-4/12 w-full md:h-4/5 min-w-96 h-full rounded-md"
-    >
-      <!-- Header -->
-      <div
-        class="bg-darkBlue py-3 px-4 rounded-t-md flex items-center justify-between"
-      >
-        <div class="text-titleTextColor text-sm font-semibold">
-          Sözleşme Detayı
-        </div>
-        <div @click="closeModal">
-          <img src="@/assets/icons/close.svg" alt="" />
-        </div>
-      </div>
       <!-- Form -->
       <div class="px-2 flex flex-col items-center">
         <Input label="Başlangıç Tarihi" />
@@ -31,7 +11,7 @@
           label="Sözleşme Bedeli"
         />
         <div
-          class="md:flex md:flex-row flex flex-col w-full items-center md:mt-4 px-4" 
+          class="md:flex md:flex-row flex flex-col w-full items-center md:my-3 px-4" 
         >
           <div
             class="md:flex md:justify-between w-full  justify-center items-center md:my-0 my-7"
@@ -43,7 +23,7 @@
               :src="require('@/assets/icons/plus.svg')"
               to="#"
               title="İncele"
-              @button-click="closeModal"
+              @button-click="review"
             />
           </div>
             <div class="flex ">
@@ -53,7 +33,7 @@
                 :src="require('@/assets/icons/plus.svg')"
                 to="#"
                 title="İptal"
-                @button-click="closeModal"
+                @button-click="close"
               />
               <Button
                 :img-show="false"
@@ -61,13 +41,12 @@
                 :src="require('@/assets/icons/plus.svg')"
                 to="#"
                 title="kaydet"
+                @button-click="save"
               />
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -83,15 +62,16 @@ export default {
     descriptionInput,
     fileInput,
   },
-  props: {
-    contractModalDetailVisibility: {
-      type: Boolean,
-    },
-  },
   methods: {
-    closeModal() {
-      this.$emit("changeModalVisibility", false);
-    },
+      review() {
+        this.$emit("review");
+      },
+      close() {
+        this.$emit("close");
+      },
+      save() {
+        this.$emit("save");
+      },
   },
 };
 </script>

@@ -12,7 +12,7 @@
             to="#"
             title="Ekle"
             className="py-2"
-            @button-click="userAddModal"
+            @button-click="openUserAddModal"
           />
         </div>
         <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
@@ -37,12 +37,17 @@
           '',
           '',
         ]"
-        :bodycolumns="data"
+        :bodycolumns="users"
       />
-      <userAdd
-      @changeModalVisibility="userAddModalVisible"
-        :userModalVisibility="userAddModalVisible"
-      />
+      <customModal
+        header-title="Kullanıcı Ekle"
+        ref="usersAddModal"
+        name="user"
+      >
+        <template v-slot:form>
+          <userAddForm @close="closeUserAddModal" />
+        </template>
+      </customModal>
     </div>
   </div>
 </template>
@@ -53,7 +58,9 @@ import Button from "@/components/button.vue";
 import searchInput from "@/components/searchInput.vue";
 import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
-import userAdd from "./components/userAdd.vue";
+import customModal from "@/components/customModal.vue";
+import userAddForm from "./components/userAddForm.vue";
+import { api } from "@/networking/AxiosInstance.js";
 export default {
   components: {
     pageTitle,
@@ -61,81 +68,32 @@ export default {
     Button,
     searchInput,
     filterButton,
-    userAdd,
+    customModal,
+    userAddForm,
   },
   data() {
     return {
-      userAddModalVisible: false,
-      data: [
-        {
-          id: 1,
-          name: "Ferhat Kuş",
-          email: "hzdkv@example.com",
-          username: "ferhatkus",
-          telno: "05372700415",
-          role: "Muhasebe",
-          authority: "Yöneticix",
-        },
-        {
-          id: 2,
-          name: "Ferhat Kuş",
-          email: "hzdkv@example.com",
-          username: "ferhatkus",
-          telno: "05372700415",
-          role: "Muhasebe",
-          authority: "Yöneticix",
-        },
-        {
-          id: 3,
-          name: "Ferhat Kuş",
-          email: "hzdkv@example.com",
-          username: "ferhatkus",
-          telno: "05372700415",
-          role: "Muhasebe",
-          authority: "Yöneticix",
-        },
-        {
-          id: 4,
-          name: "Ferhat Kuş",
-          email: "hzdkv@example.com",
-          username: "ferhatkus",
-          telno: "05372700415",
-          role: "Muhasebe",
-          authority: "Yöneticix",
-        },
-        {
-          id: 5,
-          name: "Ferhat Kuş",
-          email: "hzdkv@example.com",
-          username: "ferhatkus",
-          telno: "05372700415",
-          role: "Muhasebe",
-          authority: "Yöneticix",
-        },
-        {
-          id: 6,
-          name: "Ferhat Kuş",
-          email: "hzdkv@example.com",
-          username: "ferhatkus",
-          telno: "05372700415",
-          role: "Muhasebe",
-          authority: "Yöneticix",
-        },
-        {
-          id: 7,
-          name: "Ferhat Kuş",
-          email: "hzdkv@example.com",
-          username: "ferhatkus",
-          telno: "05372700415",
-          role: "Muhasebe",
-          authority: "Yöneticix",
-        },
-      ],
+      users: [],
     };
   },
+  created() {
+    this.getUsers();
+  },
   methods: {
-    userAddModal() {
-      this.userAddModalVisible = !this.userAddModalVisible;
+    async getUsers() {
+      try {
+        const response = await api().get("/users");
+        this.users = response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    openUserAddModal() {
+      this.$refs.usersAddModal.show("user");
+    },
+    closeUserAddModal() {
+      this.$refs.usersAddModal.hide("user");
     },
   },
 };

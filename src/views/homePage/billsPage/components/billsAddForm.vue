@@ -1,18 +1,4 @@
 <template>
-    <div
-      v-show="modalVisible"
-      class="flex justify-center items-center absolute z-50 top-0 left-0 w-full h-full bg-slate-300 bg-opacity-50"
-    >
-      <div @click.stop class="bg-white md:w-4/12 w-full min-w-96  md:h-4/5 h-full rounded-md">
-        <!-- Header -->
-        <div
-          class="bg-darkBlue py-3 px-4 rounded-t-md flex items-center justify-between"
-        >
-          <div  class="text-titleTextColor font-semibold">
-            Fatura Ekle
-          </div>
-          <div @click="closeModal"><img src="@/assets/icons/close.svg" alt="" /></div>
-        </div>
         <!-- Form -->
         <div class="px-2 flex flex-col">
           <div class="flex flex-col items-center">
@@ -21,7 +7,7 @@
             <Input label="Fatura No" />
             <descriptionInput label="Acıklama" />
           </div>
-          <div class="flex px-5">
+          <div class="flex px-2">
             <Input label="Fatura Tutarı" />
             <Input label="Son Ödeme Tarihi" />
           </div>
@@ -36,7 +22,7 @@
               :src="require('@/assets/icons/plus.svg')"
               to="#"
               title="İptal"
-              @button-click="closeModal"
+              @button-click="close"
             
             />
           </div>
@@ -46,12 +32,11 @@
               :src="require('@/assets/icons/plus.svg')"
               to="#"
               title="Kaydet"
+              @button-click="save"
             />
           </div>
         </div>
         </div>
-      </div>
-    </div>
   </template>
   
   <script>
@@ -65,14 +50,12 @@
       Button,
       descriptionInput,
     },
-    props: {
-      modalVisible: {
-        type: Boolean,
-      },
-    },
     methods: {
-      closeModal() {
-        this.$emit("modalVisible", false); // modalVisible prop'unu false olarak güncelle
+      close() {
+        this.$emit("close");
+      },
+      save() {
+        this.$emit("save");
       },
     },
   };
