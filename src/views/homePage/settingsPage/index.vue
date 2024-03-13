@@ -9,7 +9,7 @@
 
 <script>
 import pageTitle from "@/components/pageTitle.vue";
-import Form from './components/form.vue';
+import Form from '@/components/form.vue';
 export default {
   components: {
     pageTitle,
@@ -17,3 +17,4 @@ export default {
   },
 };
 </script>
+../../../components/form.vue

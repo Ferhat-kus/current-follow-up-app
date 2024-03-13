@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <div class="flex">
       <Input label="Firma Ünvanı" />
       <Input label="Firma Adresi" />
@@ -17,7 +17,7 @@
         :img-show="false"
         className="py-2 px-4"
         :src="require('@/assets/icons/plus.svg')"
-        to="#"
+        :to="to"
         title="kaydet"
       />
     </div>
@@ -32,5 +32,9 @@ export default {
     Input,
     Button,
   },
+  props:{
+    to: String,
+  
+  }
 };
 </script>

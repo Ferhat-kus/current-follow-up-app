@@ -1,18 +1,18 @@
 <template>
   <div
-    v-show="modalVisible"
+    v-show="detailModalVisible"
     @click="closeModal"
     class="flex justify-center items-center absolute z-50 top-0 left-0 w-full h-full bg-slate-300 bg-opacity-50"
   >
     <div
       @click.stop
-      class="bg-white md:w-4/12 w-full min-w-96 md:h-3/6 h-full rounded-md"
+      class="bg-white md:w-4/12 w-full md:h-3/6 min-w-96 h-full rounded-md"
     >
       <!-- Header -->
       <div
         class="bg-darkBlue py-3 px-4 rounded-t-md flex items-center justify-between"
       >
-        <div class="text-titleTextColor font-semibold">Firma Ekle</div>
+        <div class="text-titleTextColor font-semibold">Firma Detayı</div>
         <div @click="closeModal">
           <img src="@/assets/icons/close.svg" alt="" />
         </div>
@@ -41,27 +41,31 @@
               :src="require('@/assets/icons/plus.svg')"
               to="#"
               title="Sözleşme Ekle"
-              @button-click="contractModal" 
+              @button-click="contractModal"
             />
           </div>
           <div
-            class="md:flex md:justify-end w-full  justify-center items-center"
+            class="md:flex md:justify-end w-full justify-center items-center"
           >
-            <Button
-              :img-show="false"
-              className="py-2 px-5 md:my-0 my-3 md:mx-4 bg-red"
-              :src="require('@/assets/icons/plus.svg')"
-              to="#"
-              title="İptal"
-              @button-click="closeModal"
-            />
-            <Button
-              :img-show="false"
-              className="py-2 md:my-0 my-3 px-4 "
-              :src="require('@/assets/icons/plus.svg')"
-              to="#"
-              title="kaydet"
-            />
+            <div class="md:my-0 my-3">
+              <Button
+                :img-show="false"
+                className="py-2 px-5 md:mx-4 bg-red"
+                :src="require('@/assets/icons/plus.svg')"
+                to="#"
+                title="İptal"
+                @button-click="closeModal"
+              />
+            </div>
+            <div class="md:my-0 my-3">
+              <Button
+                :img-show="false"
+                className="py-2 px-4 "
+                :src="require('@/assets/icons/plus.svg')"
+                to="#"
+                title="kaydet"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -81,7 +85,7 @@ export default {
     descriptionInput,
   },
   props: {
-    modalVisible: {
+    detailModalVisible: {
       type: Boolean,
     },
   },

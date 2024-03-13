@@ -48,13 +48,13 @@
       </div>
     </div>
     <!-- Sayfa sayısı ve pagination -->
-    <div class="flex justify-between mt-4">
+    <div class="flex justify-between mt-2">
       <div>Toplam {{ totalPages }} sayfa var</div>
       <div class="flex ">
         <button
           @click="goToPreviousPage"
           :disabled="currentPage === 1"
-          class="px-3 py-1 rounded-l-md border text-white  border-[#7d85c5] bg-[#7d85c5] hover:text-white"
+          class="px-3 py-1 rounded-l-md  text-white   bg-opacBlue hover:text-white"
         >
         <img src="@/assets/icons/leftarrow.svg" alt="">
         </button>
@@ -63,14 +63,14 @@
           :key="pageNumber"
           @click="setCurrentPage(pageNumber)"
           :class="{ 'bg-darkBlue text-white': pageNumber === currentPage }"
-          class="px-3 py-1 border bg-[#7d85c5] border-[#7d85c5] hover:bg-darkBlue hover:border-darkBlue text-white"
+          class="px-3 py-1  bg-[#7d85c5]  hover:bg-darkBlue  text-white"
         >
           {{ pageNumber }}
         </button>
         <button
           @click="goToNextPage"
           :disabled="currentPage === totalPages"
-          class="px-3 py-1 rounded-r-md border border-[#7d85c5] bg-[#7d85c5] hover:text-white"
+          class="px-3 py-1 rounded-r-md  bg-opacBlue hover:text-white"
         >
           <img src="@/assets/icons/rightarrow.svg" alt="">
         </button>

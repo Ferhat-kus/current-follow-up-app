@@ -8,7 +8,7 @@
       <div v-show="imgShow">
         <img :class="imgClass" class="md:w-10 w-8" :src="src" />
       </div>
-      <button class="md:w-full font-semibold text-white mr-2">
+      <button class="md:w-full whitespace-nowrap font-semibold text-white mr-2">
         {{ title }}
       </button>
     </router-link>

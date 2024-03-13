@@ -1,55 +1,54 @@
 <template>
   <div
-    v-show="modalVisible"
+    v-show="userModalVisibility"
     @click="closeModal"
     class="flex justify-center items-center absolute z-50 top-0 left-0 w-full h-full bg-slate-300 bg-opacity-50"
   >
     <div
       @click.stop
-      class="bg-white md:w-4/12 w-full min-w-96 md:h-3/6 h-full rounded-md"
+      class="bg-white md:w-4/12 w-full md:h-auto py-2 h-full rounded-md"
     >
       <!-- Header -->
       <div
         class="bg-darkBlue py-3 px-4 rounded-t-md flex items-center justify-between"
       >
-        <div class="text-titleTextColor font-semibold">Firma Ekle</div>
+        <div class="text-titleTextColor text-sm font-semibold">
+          Kullanıcı Ekle
+        </div>
         <div @click="closeModal">
           <img src="@/assets/icons/close.svg" alt="" />
         </div>
       </div>
       <!-- Form -->
-      <div class="px-2 flex flex-col md:my-0 my-3">
-        <div class="flex md:my-0 my-2">
-          <Input label="Firma Ünvanı" />
-          <Input label="Firma Adresi" />
+      <div class="px-2 flex w-full flex-col items-center">
+        <div class="flex w-full">
+          <Input label="Adı" />
+          <Input label="Soyadı" />
         </div>
-        <div class="flex md:my-0 my-2">
+        <div class="flex w-full">
           <Input label="Telefon No" />
           <Input label="Mail" />
         </div>
-        <div class="flex md:my-0 my-2">
-          <Input label="Vergi Adresi" />
-          <Input label="Vergi No" />
+        <div class="flex w-full">
+          <Input label="Kullanıcı Adı" />
+          <Input type="password" label="Şifre" />
+        </div>
+        <div class="flex  w-full ">
+          <Dropdown
+            label="Yetki"
+            :options="dropdownOptions"
+            className="my-dropdown"
+          />
         </div>
         <div
           class="md:flex md:flex-row flex flex-col w-full items-center justify-between md:mt-4 px-2"
         >
-          <div class="md:w-5/12 w-full md:my-0 my-3">
-            <Button
-              :img-show="false"
-              className="py-2 px-5 whitespace-nowrap bg-opacBlue"
-              :src="require('@/assets/icons/plus.svg')"
-              to="#"
-              title="Sözleşme Ekle"
-              @button-click="contractModal" 
-            />
-          </div>
           <div
-            class="md:flex md:justify-end w-full  justify-center items-center"
+            class="md:flex md:justify-end w-full justify-center items-center md:my-0 my-7"
           >
             <Button
               :img-show="false"
-              className="py-2 px-5 md:my-0 my-3 md:mx-4 bg-red"
+              className="py-2 px-5 md:mx-4 bg-red"
               :src="require('@/assets/icons/plus.svg')"
               to="#"
               title="İptal"
@@ -57,7 +56,7 @@
             />
             <Button
               :img-show="false"
-              className="py-2 md:my-0 my-3 px-4 "
+              className="py-2 px-4 "
               :src="require('@/assets/icons/plus.svg')"
               to="#"
               title="kaydet"
@@ -72,16 +71,15 @@
 <script>
 import Button from "@/components/button.vue";
 import Input from "@/components/input.vue";
-import descriptionInput from "@/components/descriptionInput.vue";
-
+import Dropdown from "@/components/dropdown.vue";
 export default {
   components: {
     Input,
     Button,
-    descriptionInput,
+    Dropdown,
   },
   props: {
-    modalVisible: {
+    userModalVisibility: {
       type: Boolean,
     },
   },
@@ -89,9 +87,20 @@ export default {
     closeModal() {
       this.$emit("changeModalVisibility", false);
     },
-    contractModal() {
-      this.$emit("contractModalVisibility", false);
-    },
   },
+  data() {
+    return {
+      dropdownOptions: [
+        { label: "Kullanıcı", value: "Kullanıcı" },
+        { label: "Yönetici", value: "Yönetici" },
+        { label: "Kurucu", value: "Kurucu " },
+      ],
+    };
+  },
+  methods: {
+    closeModal() {
+      this.$emit("changeModalVisibility", false);
+    },
+  }
 };
 </script>

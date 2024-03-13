@@ -1,7 +1,7 @@
 <template>
   <div class="md:p-10">
     <pageTitle title="sözleşmeler" />
-    <div class="md:my-7">
+    <div class="md:my-6">
       <div
         class="w-full flex md:flex-row flex-col items-center justify-between"
       >
@@ -12,6 +12,7 @@
             :src="require('@/assets/icons/plus.svg')"
             to="#"
             title="Ekle"
+            @button-click="contractModals"
           />
         </div>
         <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
@@ -33,8 +34,17 @@
           '',
         ]"
         :bodycolumns="data"
+        @row-clicked="contractModalsDetail"
       />
     </div>
+    <contractModal
+      @changeModalVisibility="(val) => (contractModalVisibility = val)"
+      :contractModalVisibility="contractModalVisibility"
+    />
+    <contractModalDetail
+      @changeModalVisibility="(val) => (contractModalDetailVisibility = val)"
+      :contractModalDetailVisibility="contractModalDetailVisibility"
+    />
   </div>
 </template>
 
@@ -44,7 +54,8 @@ import Button from "@/components/button.vue";
 import searchInput from "@/components/searchInput.vue";
 import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
-
+import contractModal from "./components/contractModal.vue";
+import contractModalDetail from "./components/contractModalDetail.vue";
 export default {
   components: {
     pageTitle,
@@ -52,9 +63,13 @@ export default {
     Button,
     searchInput,
     filterButton,
+    contractModal,
+    contractModalDetail
   },
   data() {
     return {
+      contractModalDetailVisibility: false,
+      contractModalVisibility: false,
       data: [
         {
           id: 1,
@@ -107,6 +122,14 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    contractModals() {
+      this.contractModalVisibility = !this.contractModalVisibility;
+    },
+    contractModalsDetail() {
+      this.contractModalDetailVisibility =!this.contractModalDetailVisibility;
+    },
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="md:p-10">
     <pageTitle title="Kullanıcılar" />
-    <div class="md:my-7">
+    <div class="md:my-6">
       <div
         class="w-full flex md:flex-row flex-col items-center justify-between"
       >
@@ -12,6 +12,7 @@
             to="#"
             title="Ekle"
             className="py-2"
+            @button-click="userAddModal"
           />
         </div>
         <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
@@ -38,6 +39,10 @@
         ]"
         :bodycolumns="data"
       />
+      <userAdd
+      @changeModalVisibility="userAddModalVisible"
+        :userModalVisibility="userAddModalVisible"
+      />
     </div>
   </div>
 </template>
@@ -48,7 +53,7 @@ import Button from "@/components/button.vue";
 import searchInput from "@/components/searchInput.vue";
 import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
-
+import userAdd from "./components/userAdd.vue";
 export default {
   components: {
     pageTitle,
@@ -56,9 +61,11 @@ export default {
     Button,
     searchInput,
     filterButton,
+    userAdd,
   },
   data() {
     return {
+      userAddModalVisible: false,
       data: [
         {
           id: 1,
@@ -125,6 +132,11 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    userAddModal() {
+      this.userAddModalVisible = !this.userAddModalVisible;
+    },
   },
 };
 </script>

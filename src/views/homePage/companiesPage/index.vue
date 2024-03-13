@@ -1,7 +1,7 @@
 <template>
   <div class="md:p-10">
     <pageTitle title="FİRMALAR" />
-    <div class="md:my-7">
+    <div class="md:my-6">
       <div
         class="w-full flex md:flex-row flex-col items-center justify-between"
       >
@@ -14,7 +14,6 @@
             title="Ekle"
             @button-click="toggleModal"
           />
-          <addModal  :modal-visible="modalVisible" />
         </div>
         <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
           <div class="md:mx-5 md:w-2/3 w-full my-1">
@@ -37,9 +36,23 @@
           '',
         ]"
         :bodycolumns="data"
-        @row-clicked="handleRowClicked"
+        @row-clicked="detailModals"
       />
-      <detailModalVisible :detailModalVisible="detailModalVisible"/>
+      <!-- models -->
+      <addModal
+        @contractModalVisibility="contractModals"
+        @changeModalVisibility="(val) => (modalVisible = val)"
+        :modal-visible="modalVisible"
+      />
+      <detailModal
+        @contractModalVisibility="contractModals"
+        @changeModalVisibility="(val) => (detailModalVisible = val)"
+        :detailModalVisible="detailModalVisible"
+      />
+      <contractModal
+        @changeModalVisibility="(val) => (contractModalVisibility = val)"
+        :contractModalVisibility="contractModalVisibility"
+      />
     </div>
   </div>
 </template>
@@ -51,7 +64,8 @@ import searchInput from "@/components/searchInput.vue";
 import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
 import addModal from "./components/addModal.vue";
-import detailModalVisible from './components/detailModalVisible.vue';
+import detailModal from "./components/detailModal.vue";
+import contractModal from "@/views/homePage/contractsPage/components/contractModal.vue";
 export default {
   components: {
     pageTitle,
@@ -60,10 +74,12 @@ export default {
     searchInput,
     filterButton,
     addModal,
-    detailModalVisible
+    detailModal,
+    contractModal,
   },
   data() {
     return {
+      contractModalVisibility: false,
       detailModalVisible: false,
       modalVisible: false,
       data: [
@@ -170,9 +186,12 @@ export default {
     toggleModal() {
       this.modalVisible = !this.modalVisible;
     },
-    handleRowClicked() {
+    detailModals() {
       this.detailModalVisible = !this.detailModalVisible;
-    }
+    },
+    contractModals() {
+      this.contractModalVisibility = !this.contractModalVisibility;
+    },
   },
 };
 </script>

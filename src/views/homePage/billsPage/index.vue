@@ -1,17 +1,18 @@
 <template>
   <div class="md:p-10">
     <pageTitle title="FATURALAR" />
-    <div class="md:my-7">
+    <div class="md:my-5">
       <div
         class="w-full flex md:flex-row flex-col items-center justify-between"
       >
-        <div class="md:w-3/12 w-full flex">
+        <div class="md:w-3/12 w-full md:flex">
           <Button
             :img-show="true"
             className="mr-5 py-2"
             :src="require('@/assets/icons/plus.svg')"
             to="#"
             title="ODM Ekle"
+            @button-click="odmModalVisible"
           />
           <Button
             :img-show="true"
@@ -19,6 +20,7 @@
             :src="require('@/assets/icons/plus.svg')"
             to="#"
             title="Ekle"
+            @button-click="AddmodalVisibility"
           />
         </div>
         <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
@@ -40,9 +42,25 @@
           '',
         ]"
         :bodycolumns="data"
+        @row-clicked="modalVisibility"
+      />
+      <billsAdd @modalVisible="AddmodalVisibility" :modalVisible="Addmodal" />
+      <billsDetail
+        @cancelModalVisible="cancelModal"
+        @modalVisible="modalVisibility"
+        :modalVisible="modalVisible"
+      />
+
+      <odmAdd
+        @cancelmodalVisible="cancelModal"
+        @modalVisible="odmModalVisible"
+        :odmModalVisible="odmModal"
+      />
+      <cancelModal
+        @modalVisible="(val) => (cancelModalVisible = val)"
+        :cancelModalVisible="cancelModalVisible"
       />
     </div>
-
   </div>
 </template>
 
@@ -52,7 +70,10 @@ import Button from "@/components/button.vue";
 import searchInput from "@/components/searchInput.vue";
 import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
-
+import billsDetail from "./components/billsDetail.vue";
+import billsAdd from "./components/billsAdd.vue";
+import cancelModal from "./components/cancelModal.vue";
+import odmAdd from "./components/odmAdd.vue";
 export default {
   components: {
     pageTitle,
@@ -60,9 +81,17 @@ export default {
     Button,
     searchInput,
     filterButton,
+    billsDetail,
+    billsAdd,
+    cancelModal,
+    odmAdd,
   },
   data() {
     return {
+      modalVisible: false,
+      cancelModalVisible: false,
+      Addmodal: false,
+      odmModal: false,
       data: [
         {
           id: 1,
@@ -122,6 +151,20 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    modalVisibility() {
+      this.modalVisible = !this.modalVisible;
+    },
+    AddmodalVisibility() {
+      this.Addmodal = !this.Addmodal;
+    },
+    cancelModal() {
+      this.cancelModalVisible = !this.cancelModalVisible;
+    },
+    odmModalVisible() {
+      this.odmModal = !this.odmModal;
+    },
   },
 };
 </script>

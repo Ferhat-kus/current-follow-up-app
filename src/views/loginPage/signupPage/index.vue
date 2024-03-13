@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-</template>
+</template> 
 
 <script>
 import Form from "./components/form.vue";
