@@ -4,7 +4,7 @@
     <div class="md:overflow-x-auto">
       <div class="w-full inline-block align-middle">
         <div
-          class="md:overflow-y-scroll md:overflow-x-clip md:h-[351px] h-80 overflow-scroll border-darkBlue border-2 rounded-lg"
+          class="md:overflow-y-auto md:overflow-x-auto md:h-[351px] h-80 overflow-scroll border-darkBlue border-2 rounded-lg"
         >
           <table class="min-w-full divide-y divide-gray-200">
             <!-- Tablo başlığı -->
@@ -35,7 +35,7 @@
                 <th @click="detailClicked" class="border-b border-darkBlue">
                   <img class="w-5" src="@/assets/icons/edit.svg" alt="" />
                 </th>
-                <th v-show="show" class="border-b border-darkBlue">
+                <th @click="deleteClicked" v-show="show" class="border-b border-darkBlue">
                   <img class="w-5" src="@/assets/icons/trash.svg" alt="" />
                 </th>
               </tr>
@@ -123,6 +123,10 @@ export default {
     detailClicked() {
       this.$emit("detail-clicked");
     },
+    deleteClicked() {
+      this.$emit("delete-clicked");
+    },
+    // Sayfayı değiştirir
     // Sayfayı değiştirir
     setCurrentPage(pageNumber) {
       this.currentPage = pageNumber;

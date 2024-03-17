@@ -20,7 +20,7 @@
             :src="require('@/assets/icons/plus.svg')"
             to="#"
             title="Ekle"
-            @button-click="openBillsAddModalComponent"
+            @button-click="openModal('add')"
           />
         </div>
         <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
@@ -33,6 +33,7 @@
         </div>
       </div>
       <Table
+        :show="true"
         :headercolumns="[
           '#',
           'fatura tutarı',
@@ -40,28 +41,18 @@
           'fatura tarihi',
           'ödeme tarihi',
           '',
+          '',
+
         ]"
-        :bodycolumns="bills"
-        @row-clicked="openBillsDetailModalComponent"
-        @detail-clicked="openBillsDetailModalComponent"
+        :bodycolumns="bills[0].bills"
+        @row-clicked="openModal('detail')"
+        @detail-clicked="openModal('detail')"
+        @delete-clicked="showDeleteAlert"
       />
       <!-- Fatura Ekle -->
-      <customModal header-title="Fatura Ekle" ref="modalComponent" name="add">
+      <customModal :header-title="modalTitle" ref="modalComponent" name="add">
         <template v-slot:form>
-          <billsAddForm @close="closeBillsAddModalComponent" />
-        </template>
-      </customModal>
-      <!-- Fatura Detayı -->
-      <customModal
-        header-title="Fatura Detayı"
-        ref="detailModalComponent"
-        name="detail"
-      >
-        <template v-slot:form>
-          <billsDetailForm
-            @save="openCancelModalComponent"
-            @close="closeBillsDetailModalComponent"
-          />
+          <billsForm @close="closeModal" />
         </template>
       </customModal>
       <!-- İptal Modal -->
@@ -91,9 +82,8 @@ import searchInput from "@/components/searchInput.vue";
 import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
 import customModal from "@/components/customModal.vue";
-import billsAddForm from "./components/billsAddForm.vue";
+import billsForm from "./components/billsForm.vue";
 import odmAddForm from "./components/odmAddForm.vue";
-import billsDetailForm from "./components/billsDetailForm.vue";
 import cancelForm from "./components/cancelForm.vue";
 import { api } from "@/networking/AxiosInstance.js";
 export default {
@@ -104,13 +94,13 @@ export default {
     searchInput,
     filterButton,
     customModal,
-    billsAddForm,
     odmAddForm,
-    billsDetailForm,
+    billsForm,
     cancelForm,
   },
   data() {
     return {
+      modalTitle: "",
       bills: [],
     };
   },
@@ -120,33 +110,33 @@ export default {
   methods: {
     async getBills() {
       try {
-        const response = await api().get("/bills");
+        const response = await api().get("/companies");
         this.bills = response.data;
       } catch (error) {
         console.error(error);
       }
     },
-    openBillsAddModalComponent() {
+    openModal(action) {
+      if (action === "add") {
+        this.modalTitle = "Fatura Ekle";
+      } else if (action === "detail") {
+        this.modalTitle = "Fatura Detayları";
+      }
       this.$refs.modalComponent.show("add");
+      
     },
-    closeBillsAddModalComponent() {
+    closeModal() {
       this.$refs.modalComponent.hide("add");
     },
-
-    openBillsDetailModalComponent() {
-      this.$refs.detailModalComponent.show("detail");
-    },
-    closeBillsDetailModalComponent() {
-      this.$refs.detailModalComponent.hide("detail");
-    },
-
+    showDeleteAlert() {
+    confirm("Silmek İstediğinize Eminmisinz");
+  },
     openOdmModalComponent() {
       this.$refs.odmModalComponent.show("odm");
     },
     closeOdmModalComponent() {
       this.$refs.odmModalComponent.hide("odm");
     },
-
     openCancelModalComponent() {
       this.$refs.detailModalComponent.hide("detail");
       this.$refs.cancelModalComponent.show("cancel");

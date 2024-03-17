@@ -1,22 +1,33 @@
 <template>
-  <div class="px-2 flex flex-col md:my-0 my-3">
-    <div class="px-2 flex flex-col items-center">
-      <Input label="Başlangıç Tarihi" />
-      <Input label="Bitiş Tarihi" />
-      <descriptionInput label="İçeriği/Konusu" />
-      <fileInput label="Sözleşme dosyası" />
-      <Input
-      
-        :dropdownShow="true"
-        className="rounded-none rounded-r-md"
-        label="Sözleşme Bedeli"
-      />
+  <!-- Form -->
+  <div class="px-2 flex flex-col items-center">
+    <Input label="Başlangıç Tarihi" />
+    <Input label="Bitiş Tarihi" />
+    <descriptionInput label="İçeriği/Konusu" />
+    <fileInput label="Sözleşme dosyası" />
+    <Input
+      :dropdownShow="true"
+      className="rounded-none rounded-r-md"
+      label="Sözleşme Bedeli"
+    />
+    <div
+      class="md:flex md:flex-row flex flex-col w-full items-center md:my-3 px-4"
+    >
       <div
-        class="md:flex md:flex-row flex flex-col w-full items-center justify-between md:my-2 px-5"
+        class="md:flex md:justify-between w-full justify-center items-center md:my-0 my-7"
       >
-        <div
-          class="md:flex md:justify-end w-full justify-center  items-center md:my-0 my-7"
-        >
+        <div class="flex w-2/4">
+          <Button
+            v-show="reviewButton"
+            :img-show="false"
+            className="py-2 px-5  bg-opacBlue"
+            :src="require('@/assets/icons/plus.svg')"
+            to="#"
+            title="İncele"
+            @button-click="review"
+          />
+        </div>
+        <div class="flex">
           <Button
             :img-show="false"
             className="py-2 px-5 md:mx-4 bg-red"
@@ -52,7 +63,16 @@ export default {
     descriptionInput,
     fileInput,
   },
+  props: {
+    reviewButton: {
+      type: Boolean,
+      default: false,
+    },
+  },
   methods: {
+    review() {
+      this.$emit("review");
+    },
     close() {
       this.$emit("close");
     },

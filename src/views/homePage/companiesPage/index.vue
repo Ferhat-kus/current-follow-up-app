@@ -12,7 +12,7 @@
             :src="require('@/assets/icons/plus.svg')"
             to="#"
             title="Ekle"
-            @button-click="openAddModal"
+            @button-click="openModal('add')"
           />
         </div>
         <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
@@ -29,27 +29,25 @@
         :headercolumns="[
           '#',
           'firma adı',
-          'Firma Adresi',
           'telefon no',
           'mail',
-          'Vergi Adresi',
           'vergi no',
           'bakiye',
           '',
         ]"
-        :bodycolumns="companies"
+        :bodycolumns="filteredCompanies"
         @row-clicked="detail"
-        @detail-clicked="openDetailmodalComponent"
+        @detail-clicked="openModal('detail')"
       />
       <!-- models -->
-      <customModal header-title="Firma Ekle" ref="modalComponent" name="add">
+      <customModal :header-title="modalTitle" ref="modalComponent" name="add">
         <template v-slot:form>
-          <companiesModal @close="closeAddModal" />
-        </template>
-      </customModal>
-      <customModal header-title="Firma Detayları" ref="detailmodalComponent" name="detail">
-        <template v-slot:form>
-          <companiesModal @close="closeDetailmodalComponent" />
+          <companiesModal
+            :company="company"
+            @close="closeModal"
+            @save="createCompany"
+          />
+          <!-- :submitForm="" -->
         </template>
       </customModal>
     </div>
@@ -79,9 +77,31 @@ export default {
   },
   data() {
     return {
-      // listeleme
+      modalTitle: "",
       companies: [],
+      company: {
+        companyName: "",
+        companyAdress: "",
+        phoneNumber: "",
+        mail: "",
+        taxAdress: "",
+        taxNo: "",
+      },
     };
+  },
+  computed: {
+    filteredCompanies() {
+      return this.companies.map((company) => {
+        const {
+          bills,
+          contract,
+          companyAdress,
+          taxAdress,
+          ...filteredCompany
+        } = company;
+        return filteredCompany;
+      });
+    },
   },
   created() {
     this.getCompanies();
@@ -95,30 +115,45 @@ export default {
         console.error(error);
       }
     },
-    openAddModal() {
+    async createCompany() {
+      try {
+        const response = await api().post("/companies", {
+          companyName: this.company.companyName,
+          companyAdress: this.company.companyAdress,
+          phoneNumber: this.company.phoneNumber,
+          mail: this.company.mail,
+          taxAdress: this.company.taxAdress,
+          taxNo: this.company.taxNo,
+        });
+        // Yeni şirketin ID'sini alabiliriz
+        const newCompanyId = response.data.id;
+
+        // Yerel verileri güncelledikten sonra sayfanın yenilenmesi gerekiyorsa:
+        this.getCompanies(); // Yerel verileri güncellemek için API'den tüm şirketleri yeniden alır
+        this.closeModal(); // Modalı kapatır
+
+        // Kullanıcıya eklenen şirketi göstermek için bir geribildirim sağlayabiliriz
+        alert(`Yeni şirket başarıyla eklendi! Şirket ID: ${newCompanyId}`);
+      } catch (error) {
+        console.error("Şirket ekleme hatası:", error);
+      }
+    },
+    openModal(action) {
+      if (action === "add") {
+        this.modalTitle = "Firma Ekle";
+      } else if (action === "detail") {
+        this.modalTitle = "Firma Detayları";
+      }
       this.$refs.modalComponent.show("add");
     },
-    closeAddModal() {
+    closeModal() {
       this.$refs.modalComponent.hide("add");
-    },
-    openDetailmodalComponent() {
-      this.$refs.detailmodalComponent.show("detail");
-    },
-    closeDetailmodalComponent() {
-      this.$refs.detailmodalComponent.hide("detail");
     },
     detail() {
       if (this.$route.path !== "/bills") {
-        this.$router.push("/bills"); // bills sayfasına yönlendir
+        this.$router.push("/bills");
       }
     },
-
-    // updateModal(){
-    // data = this.companies,
-    // openUpdateModal(data) {
-    //   this.$refs.modalComponent.show("update", data);
-    //   // }
-    // },
   },
 };
 </script>

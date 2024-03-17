@@ -12,7 +12,7 @@
             :src="require('@/assets/icons/plus.svg')"
             to="#"
             title="Ekle"
-            @button-click="openContractModal"
+            @button-click="openModal('add')"
           />
         </div>
         <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
@@ -34,29 +34,19 @@
           '',
         ]"
         :bodycolumns="contract"
-        @row-clicked="openContractDetailModal"
-        @detail-clicked="openContractDetailModal"
+        @row-clicked="openModal('detail')"
+        @detail-clicked="openModal('detail')"
       />
       <customModal
-        header-title="Sözleşme Ekle"
-        ref="contractModalForms"
-        name="contracts"
+        :header-title="modalTitle"
+        ref="modalComponent"
+        name="add"
       >
         <template v-slot:form>
-          <contractModalForm @close="closeContractModal" />
+          <contractModalForm :reviewButton="reviewButton" @close="closeModal" />
         </template>
       </customModal>
-
-      <customModal
-        header-title="Sözleşme Detayı"
-        ref="contractDetailModalForms"
-        name="contractsDetail"
-      >
-        <template v-slot:form>
-          <contractDetailModalForm @close="closeContractDetailModal" />
-        </template>
-      </customModal>
-    </div>
+      </div>
   </div>
 </template>
 
@@ -67,7 +57,6 @@ import searchInput from "@/components/searchInput.vue";
 import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
 import contractModalForm from "./components/contractModalForm.vue";
-import contractDetailModalForm from "./components/contractDetailModalForm.vue";
 import customModal from "@/components/customModal.vue";
 import { api } from "@/networking/AxiosInstance.js";
 export default {
@@ -79,11 +68,12 @@ export default {
     filterButton,
     customModal,
     contractModalForm,
-    contractDetailModalForm,
   },
   data() {
     return {
       contract: [],
+      modalTitle: "",
+      reviewButton: "",
     };
   },
   created() {
@@ -98,18 +88,19 @@ export default {
         console.error(error);
       }
     },
-    openContractModal() {
-      this.$refs.contractModalForms.show("contracts");
+    openModal(action) {
+      if (action === "add") {
+        this.modalTitle = "Sözleşme Ekle";
+        this.reviewButton = false;
+      } else if (action === "detail") {
+        this.modalTitle = "Sözleşme Detayları";
+        this.reviewButton = true;
+      }
+      this.$refs.modalComponent.show("add");
     },
-    closeContractModal() {
-      this.$refs.contractModalForms.hide("contracts");
-    },
-    openContractDetailModal() {
-      this.$refs.contractDetailModalForms.show("contractsDetail");
-    },
-    closeContractDetailModal() {
-      this.$refs.contractDetailModalForms.hide("contractsDetail");
+    closeModal() {
+      this.$refs.modalComponent.hide("add");
     },
   },
 };
-</script>
+</script>./components/contractModalForm.vue

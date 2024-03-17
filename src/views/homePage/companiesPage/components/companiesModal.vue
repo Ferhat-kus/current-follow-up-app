@@ -1,19 +1,19 @@
 <template>
-  <div class="px-2 flex flex-col md:my-0 my-3">
+  <form @submit.prevent="submitForm" class="px-2 flex flex-col md:my-0 my-3">
     <div class="flex md:my-0 my-2">
-      <Input :value="companyName" label="Firma Ünvanı" />
-      <Input :value="companyAdress" label="Firma Adresi" />
+      <Input v-model="company.companyName" label="Firma Ünvanı" />
+      <Input v-model="company.companyAdress" label="Firma Adresi" />
     </div>
     <div class="flex md:my-0 my-2">
-      <Input :value="phoneNumber" label="Telefon No" />
-      <Input :value="mail" label="Mail" />
+      <Input v-model="company.phoneNumber" label="Telefon No" />
+      <Input v-model="company.mail" label="Mail" />
     </div>
     <div class="flex md:my-0 my-2">
-      <Input :value="taxAdress" label="Vergi Adresi" />
-      <Input :value="taxNo" label="Vergi No" />
+      <Input v-model="company.taxAdress" label="Vergi Adresi" />
+      <Input v-model="company.taxNo" label="Vergi No" />
     </div>
     <div
-      class="md:flex md:flex-row flex flex-col w-full items-center justify-between md:mt-4 px-2"
+      class="md:flex md:flex-row flex flex-col w-full items-center justify-between md:my-2 px-2"
     >
       <div class="md:w-5/12 w-full md:my-0 my-3">
         <Button
@@ -35,16 +35,17 @@
           @button-click="close"
         />
         <Button
+          buttontype="submit"
           :img-show="false"
           className="py-2 md:my-0 my-3 px-4 "
           :src="require('@/assets/icons/plus.svg')"
           to="#"
           title="kaydet"
           @button-click="save"
-        />
+          />
       </div>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -52,16 +53,7 @@ import Button from "@/components/button.vue";
 import Input from "@/components/input.vue";
 
 export default {
-  props: {
-    formData: {
-      companyName: "",
-      companyAdress: "",
-      phoneNumber: "",
-      mail: "",
-      taxAdress: "",
-      taxNo: "",
-    },
-  },
+  props: ["company", "submitForm"],
   components: {
     Button,
     Input,

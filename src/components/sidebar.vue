@@ -33,53 +33,57 @@
     </div>
 
     <!-- Sidebar content -->
-    <div class="flex flex-col text-md text-white py-2 overflow-hidden">
+    <div class="flex flex-col h-4/5 justify-between text-md text-white py-2 overflow-hidden">
       <!-- Sidebar links -->
-      <router-link
-        v-for="(route, index) in routes"
-        :key="index"
-        :to="route.path"
-      >
-      <div        
-          v-if="isShow"
-          :class="{ 'bg-white text-lightBlue': $route.path === route.path }"
-          class="flex w-full items-center hover:bg-white hover:text-lightBlue px-2 py-2 my-2 cursor-pointer"
+      <div>
+        <router-link
+          v-for="(route, index) in routes"
+          :key="index"
+          :to="route.path"
         >
-          <div class="w-1/3 flex items-center justify-center">
-            <i :class="route.icon"></i>
+          <div
+            v-if="isShow"
+            :class="{ 'bg-white text-lightBlue': $route.path === route.path }"
+            class="flex w-full items-center hover:bg-white hover:text-lightBlue px-2 py-2 my-2 cursor-pointer"
+          >
+            <div class="w-1/3 flex items-center justify-center">
+              <i :class="route.icon"></i>
+            </div>
+            <div class="w-2/3 font-semibold">{{ route.label }}</div>
           </div>
-          <div class="w-2/3 font-semibold">{{ route.label }}</div>
-        </div>
-        <div
-          v-if="!isShow"
-          :class="{ 'bg-white text-lightBlue': $route.path === route.path }"
-          class="flex w-full items-center hover:bg-white hover:text-lightBlue px-2 py-2 my-2 cursor-pointer"
-        >
-          <div class="w-full flex items-center justify-center">
-            <i :class="route.icon"></i>
+          <div
+            v-if="!isShow"
+            :class="{ 'bg-white text-lightBlue': $route.path === route.path }"
+            class="flex w-full items-center hover:bg-white hover:text-lightBlue px-2 py-2 my-2 cursor-pointer"
+          >
+            <div class="w-full flex items-center justify-center">
+              <i :class="route.icon"></i>
+            </div>
           </div>
-        </div>
-      </router-link>
+        </router-link>
+      </div>
       <!-- exit -->
-      <router-link to="/signin">
-        <div
-          v-if="isShow"
-          class="flex w-full items-center bg-white text-lightBlue px-2 py-2 my-2 cursor-pointer"
-        >
-          <div class="w-1/3 flex items-center justify-center">
-            <i class="bx bx-log-out text-2xl"></i>
+      <div>
+        <router-link to="/signin">
+          <div
+            v-if="isShow"
+            class="flex w-full items-center bg-white text-lightBlue px-2 py-2 my-2 cursor-pointer"
+          >
+            <div class="w-1/3 flex items-center justify-center">
+              <i class="bx bx-log-out text-2xl"></i>
+            </div>
+            <div class="w-2/3 font-semibold">Çıkış Yap</div>
           </div>
-          <div class="w-2/3 font-semibold">Çıkış Yap</div>
-        </div>
-        <div
-          v-else
-          class="flex w-full items-center bg-white text-lightBlue py-2 my-2 cursor-pointer"
-        >
-          <div class="w-full flex items-center justify-center">
-            <i class="bx bx-log-out text-2xl"></i>
+          <div
+            v-else
+            class="flex w-full items-center bg-white text-lightBlue py-2 my-2 cursor-pointer"
+          >
+            <div class="w-full flex items-center justify-center">
+              <i class="bx bx-log-out text-2xl"></i>
+            </div>
           </div>
-        </div>
-      </router-link>
+        </router-link>
+      </div>
     </div>
   </aside>
 </template>

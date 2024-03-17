@@ -1,11 +1,5 @@
 <template>
   <div class="flex w-screen">
-    <!-- Backdrop -->
-    <!-- <div
-      class="md:hidden fixed right-0 w-full h-screen md:bg-darkBlue bg-gray-400 bg-opacity-[0.6] z-10 transition-width ease-in-out duration-75"
-      v-show="isShow"
-      @click="toggleMenu"
-    ></div> -->
     <!-- SideBar -->
     <Sidebar :isShow="isShow" @close-sidebar="closeSidebar" />
     <main class="" :class="!isShow ? 'w-full' : 'w-full '">
@@ -64,6 +58,3 @@ export default {
   },
 };
 </script>
-
-<style></style>
-@/components/sidebar.vue

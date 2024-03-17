@@ -1,24 +1,40 @@
 <template>
   <div class="w-11/12 flex flex-col items-start mx-2">
-    <label for="inputField" class="block my-2 text-sm font-medium text-gray-700">{{ label }}</label>
-    
+    <label
+      for="inputField"
+      class="block my-2 text-sm font-medium text-gray-700"
+    >{{ label }}</label>
+
     <div class="relative w-full flex flex-col">
       <div class="flex">
-        <div v-show="dropdownShow" @click="toggleDropdown" class="bg-darkGray rounded-l-md flex items-center px-4 w-auto font-semibold whitespace-nowrap">
+        <div
+          v-show="dropdownShow"
+          @click="toggleDropdown"
+          class="bg-darkGray rounded-l-md flex items-center px-4 w-auto font-semibold whitespace-nowrap"
+        >
           {{ selectedOption }}
         </div>
         <input
           id="inputField"
-          v-model="value"
+          :value="value"
+          @input="updateValue($event.target.value)"
           :class="className"
           class="bg-lightGray w-full px-3 py-2 text-sm font-medium rounded-md focus:outline-none"
           :type="type"
         />
       </div>
-      
-      <div v-show="dropdown" class="relative z-50 mt-2 md:w-3/12 w-4/12 bg-lightGray rounded-md shadow-lg whitespace-nowrap">
+
+      <div
+        v-show="dropdown"
+        class="relative z-50 mt-2 md:w-3/12 w-4/12 bg-lightGray rounded-md shadow-lg whitespace-nowrap"
+      >
         <ul>
-          <li v-for="option in filteredOptions" :key="option" @click="selectOption(option)" class="py-2 px-2 hover:bg-darkGray cursor-pointer">
+          <li
+            v-for="option in filteredOptions"
+            :key="option"
+            @click="selectOption(option)"
+            class="py-2 px-2 hover:bg-darkGray cursor-pointer"
+          >
             {{ option }}
           </li>
         </ul>
@@ -34,20 +50,20 @@ export default {
     type: String,
     className: String,
     dropdownShow: Boolean,
-    value: String, 
+    value: String,
   },
   data() {
     return {
       dropdown: false,
       selectedOption: "Aylık",
-      options: ["Aylık", "Yıllık", "Tek Ödeme"]
+      options: ["Aylık", "Yıllık", "Tek Ödeme"],
     };
   },
   computed: {
     filteredOptions() {
-      // Filter out the selected option
-      return this.options.filter(option => option !== this.selectedOption);
-    }
+      // Seçili seçeneği filtrele
+      return this.options.filter((option) => option !== this.selectedOption);
+    },
   },
   methods: {
     toggleDropdown() {
@@ -56,6 +72,9 @@ export default {
     selectOption(option) {
       this.selectedOption = option;
       this.dropdown = false;
+    },
+    updateValue(newValue) {
+      this.$emit("input", newValue);
     },
   },
 };

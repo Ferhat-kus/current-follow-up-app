@@ -8,7 +8,7 @@
       <div v-show="imgShow">
         <img :class="imgClass" class="md:w-10 w-8" :src="src" />
       </div>
-      <button class="md:w-full whitespace-nowrap font-semibold text-white mr-2">
+      <button :type="Buttontype" class="md:w-full whitespace-nowrap font-semibold text-white mr-2">
         {{ title }}
       </button>
     </router-link>
@@ -24,6 +24,7 @@ export default {
     className: String,
     imgClass: String,
     imgShow: Boolean,
+    Buttontype: String,
   },
   methods: {
     click() {

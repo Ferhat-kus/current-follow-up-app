@@ -18,6 +18,8 @@
         :options="dropdownOptions"
         className="my-dropdown"
       />
+      <Input label="Görevi" />
+
     </div>
     <div
       class="md:flex md:flex-row flex flex-col w-full items-center justify-between md:mt-4 p-2"

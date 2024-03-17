@@ -1,8 +1,10 @@
 <template>
   <div class="w-full px-2">
     <label for="inputField" class="block my-2 text-sm font-medium text-gray-700">{{ label }}</label>
-    <button @click="toggleDropdown" class="bg-lightGray flex w-full text-gray-700 font-semibold py-2 px-4 rounded">
+    <button @click="toggleDropdown" class="bg-lightGray flex w-full text-gray-700 font-semibold py-1  px-4 rounded">
       {{ selectedOption.label }}
+      <i class="ml-auto text-xl bx bx-chevron-down"></i> 
+
     </button>
     <div v-if="isOpen" class="mt-1 w-full bg-lightGray rounded-md shadow-lg">
       <span

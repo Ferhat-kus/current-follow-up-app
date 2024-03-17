@@ -2,7 +2,7 @@
   <div class="md:p-10">
     <pageTitle title="AYARLAR" />
     <div>
-      <Form/>
+      <Form to="#"/>
     </div>
   </div>
 </template>
@@ -17,4 +17,3 @@ export default {
   },
 };
 </script>
-../../../components/form.vue

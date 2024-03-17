@@ -7,7 +7,6 @@ import './assets/tailwind.css'
 
 Vue.use(VModal)
 Vue.config.productionTip = false
-
 new Vue({
   router,
   store,

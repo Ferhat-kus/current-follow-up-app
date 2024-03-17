@@ -12,7 +12,7 @@
             to="#"
             title="Ekle"
             className="py-2"
-            @button-click="openUserAddModal"
+            @button-click="openUserAddModal('add')"
           />
         </div>
         <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
@@ -38,14 +38,16 @@
           '',
         ]"
         :bodycolumns="users"
+        @row-clicked="openUserAddModal('detail')"
+        @detail-clicked="openUserAddModal('detail')"
       />
       <customModal
-        header-title="Kullanıcı Ekle"
+        :header-title="modalTitle"
         ref="usersAddModal"
         name="user"
       >
         <template v-slot:form>
-          <userAddForm @close="closeUserAddModal" />
+          <userForm @close="closeUserAddModal" />
         </template>
       </customModal>
     </div>
@@ -59,7 +61,7 @@ import searchInput from "@/components/searchInput.vue";
 import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
 import customModal from "@/components/customModal.vue";
-import userAddForm from "./components/userAddForm.vue";
+import userForm from "./components/userForm.vue";
 import { api } from "@/networking/AxiosInstance.js";
 export default {
   components: {
@@ -69,11 +71,12 @@ export default {
     searchInput,
     filterButton,
     customModal,
-    userAddForm,
+    userForm,
   },
   data() {
     return {
       users: [],
+      modalTitle: "Kullanıcı Ekle", // Default modal title
     };
   },
   created() {
@@ -89,7 +92,12 @@ export default {
       }
     },
 
-    openUserAddModal() {
+    openUserAddModal(action) {
+      if (action === "add") {
+        this.modalTitle = "Kullanıcı Ekle";
+      } else if (action === "detail") {
+        this.modalTitle = "Kullanıcı Detayları";
+      }
       this.$refs.usersAddModal.show("user");
     },
     closeUserAddModal() {
