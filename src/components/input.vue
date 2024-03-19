@@ -29,14 +29,14 @@
 
       <div
         v-show="dropdown"
-        class="relative z-50 mt-2 md:w-3/12 w-4/12 bg-lightGray rounded-md shadow-lg whitespace-nowrap"
+        class="relative z-50 mt-1 md:w-3/12 w-4/12 bg-lightGray rounded-md shadow-lg whitespace-nowrap"
       >
         <ul>
           <li
             v-for="option in filteredOptions"
             :key="option"
             @click="selectOption(option)"
-            class="py-2 px-2 hover:bg-darkGray cursor-pointer"
+            class="py-1 px-2 hover:bg-darkGray cursor-pointer"
           >
             {{ option }}
           </li>
