@@ -28,24 +28,20 @@
         :show="true"
         :headercolumns="[
           '#',
-          'adı soyadı',
-          'mail',
+          'adı',
           'kullanıcı adı',
+          'mail',
           'tel. no.',
           'görevi',
           'Yetki',
           '',
           '',
         ]"
-        :bodycolumns="users"
+        :bodycolumns="filteredUsers"
         @row-clicked="openUserAddModal('detail')"
         @detail-clicked="openUserAddModal('detail')"
       />
-      <customModal
-        :header-title="modalTitle"
-        ref="usersAddModal"
-        name="user"
-      >
+      <customModal :header-title="modalTitle" ref="usersAddModal" name="user">
         <template v-slot:form>
           <userForm @close="closeUserAddModal" />
         </template>
@@ -62,7 +58,8 @@ import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
 import customModal from "@/components/customModal.vue";
 import userForm from "./components/userForm.vue";
-import { api } from "@/networking/AxiosInstance.js";
+import { api } from "@/plugins/AxiosInstance.js";
+
 export default {
   components: {
     pageTitle,
@@ -76,11 +73,19 @@ export default {
   data() {
     return {
       users: [],
-      modalTitle: "Kullanıcı Ekle", // Default modal title
+      modalTitle: "Kullanıcı Ekle",
     };
   },
   created() {
     this.getUsers();
+  },
+  computed: {
+    filteredUsers() {
+      return this.users.map((user) => {
+        const { surname, password, ...filteredUser } = user;
+        return filteredUser;
+      });
+    },
   },
   methods: {
     async getUsers() {
@@ -91,13 +96,9 @@ export default {
         console.error(error);
       }
     },
-
     openUserAddModal(action) {
-      if (action === "add") {
-        this.modalTitle = "Kullanıcı Ekle";
-      } else if (action === "detail") {
-        this.modalTitle = "Kullanıcı Detayları";
-      }
+      this.modalTitle =
+        action === "add" ? "Kullanıcı Ekle" : "Kullanıcı Detayları";
       this.$refs.usersAddModal.show("user");
     },
     closeUserAddModal() {

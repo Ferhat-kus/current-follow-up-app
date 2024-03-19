@@ -1,18 +1,18 @@
 <template>
-      <div class="px-2 flex flex-col">
+      <div class=" flex flex-col">
         <div class="flex flex-col items-center">
           <Input label="Ödeme Tarihi" />
           <Input label="Ödeme Tutarı" />
           <descriptionInput label="Açıklama" />
         </div>
-        <div class="flex items-center justify-end px-2  my-3">
+        <div class="flex items-center justify-start md:justify-end px-3  my-3">
           <div
-            class="flex w-full justify-end md:px-2 px-6 md:justify-end items-center "
+            class="md:flex w-full justify-start px-2 md:px-6 md:justify-end md:items-center "
           >
-          <div class="mx-2">
+          <div class="md:mx-2 ">
             <Button
               :img-show="false"
-              className="py-2 px-5 mx-2  bg-red"
+              className="py-2 px-5 md:mx-2  bg-red"
               :src="require('@/assets/icons/plus.svg')"
               to="#"
               title="İptal"
@@ -21,7 +21,7 @@
           </div>
             <Button
               :img-show="false"
-              className="py-2 px-5 mx-2"
+              className="py-2 px-5md:mx-2"
               :src="require('@/assets/icons/plus.svg')"
               to="#"
               title="Kaydet"

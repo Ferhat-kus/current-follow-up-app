@@ -26,7 +26,7 @@
                 <th
                   @click="onRowClicked"
                   scope="col"
-                  class="px-6 py-3 text-xs font-semibold text-left text-textColor border-b border-darkBlue"
+                  class="px-6 py-3 text-xs whitespace-nowrap font-semibold text-left text-textColor border-b border-darkBlue"
                   v-for="(item, index) in items"
                   :key="index"
                 >
@@ -35,7 +35,11 @@
                 <th @click="detailClicked" class="border-b border-darkBlue">
                   <img class="w-5" src="@/assets/icons/edit.svg" alt="" />
                 </th>
-                <th @click="deleteClicked" v-show="show" class="border-b border-darkBlue">
+                <th
+                  @click="deleteClicked"
+                  v-show="show"
+                  class="border-b border-darkBlue"
+                >
                   <img class="w-5" src="@/assets/icons/trash.svg" alt="" />
                 </th>
               </tr>
@@ -117,16 +121,15 @@ export default {
     },
   },
   methods: {
-    onRowClicked() {
-      this.$emit("row-clicked");
+    onRowClicked(companyId) {
+      this.$emit("row-clicked", companyId);
     },
-    detailClicked() {
-      this.$emit("detail-clicked");
+    detailClicked(companyId) {
+      this.$emit("detail-clicked", companyId);
     },
     deleteClicked() {
       this.$emit("delete-clicked");
     },
-    // Sayfayı değiştirir
     // Sayfayı değiştirir
     setCurrentPage(pageNumber) {
       this.currentPage = pageNumber;

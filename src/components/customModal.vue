@@ -1,13 +1,14 @@
 <template>
   <modal
     :name="name"
-    :height="isMobile ? '100%' : 'auto'"
-    :width="isMobile ? '100%' : '35%'"
+    :height="modalHeightForMobile"
+    :width="modalWidthForMobile"
     :scrollable="true"
     :ref="ref"
+    :adaptive="true"
+    class="modal"
   >
     <div class="rounded-sm">
-      <!-- Header -->
       <header
         class="bg-darkBlue w-full py-3 px-4 rounded-t-sm flex items-center justify-between"
       >
@@ -25,15 +26,16 @@
 
 <script>
 export default {
-  data(){
-    return {
-      isMobile: window.innerWidth < 768
-    }
-  },
   props: {
     ref: String,
     name: String,
     headerTitle: String,
+  },
+  data() {
+    return {
+      modalWidth: "35%",
+      modalHeight: "auto",
+    };
   },
   methods: {
     show() {
@@ -41,6 +43,24 @@ export default {
     },
     hide() {
       this.$modal.hide(this.name);
+    },
+  },
+  computed: {
+    isMobile() {
+      return window.innerWidth <= 768;
+    },
+    modalWidthForMobile() {
+      return this.isMobile ? "100%" : this.modalWidth; // Set desired width for mobile
+    },
+    modalHeightForMobile() {
+      return this.isMobile ? "100%" : this.modalHeight;
+    },
+  },
+  watch: {
+    isMobile(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.modalWidth = newVal ? this.modalWidthForMobile : "35%"; // Update width on device change
+      }
     },
   },
 };

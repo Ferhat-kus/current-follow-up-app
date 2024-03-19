@@ -58,7 +58,7 @@ import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
 import contractModalForm from "./components/contractModalForm.vue";
 import customModal from "@/components/customModal.vue";
-import { api } from "@/networking/AxiosInstance.js";
+import { api } from "@/plugins/AxiosInstance.js";
 export default {
   components: {
     pageTitle,
@@ -82,7 +82,7 @@ export default {
   methods: {
     async getContract() {
       try {
-        const response = await api().get("/contract");
+        const response = await api().get("/contracts");
         this.contract = response.data;
       } catch (error) {
         console.error(error);
@@ -103,4 +103,4 @@ export default {
     },
   },
 };
-</script>./components/contractModalForm.vue
+</script>./components/contractModalForm.vue@/plugins/AxiosInstance.js

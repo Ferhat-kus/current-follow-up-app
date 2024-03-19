@@ -44,10 +44,10 @@
           '',
 
         ]"
-        :bodycolumns="bills[0].bills"
+        :bodycolumns="bills"
         @row-clicked="openModal('detail')"
         @detail-clicked="openModal('detail')"
-        @delete-clicked="showDeleteAlert"
+        @delete-clicked="openCancelModalComponent"
       />
       <!-- Fatura Ekle -->
       <customModal :header-title="modalTitle" ref="modalComponent" name="add">
@@ -85,7 +85,7 @@ import customModal from "@/components/customModal.vue";
 import billsForm from "./components/billsForm.vue";
 import odmAddForm from "./components/odmAddForm.vue";
 import cancelForm from "./components/cancelForm.vue";
-import { api } from "@/networking/AxiosInstance.js";
+import { api } from "@/plugins/AxiosInstance.js";
 export default {
   components: {
     pageTitle,
@@ -110,7 +110,7 @@ export default {
   methods: {
     async getBills() {
       try {
-        const response = await api().get("/companies");
+        const response = await api().get("/bills");
         this.bills = response.data;
       } catch (error) {
         console.error(error);
@@ -128,9 +128,6 @@ export default {
     closeModal() {
       this.$refs.modalComponent.hide("add");
     },
-    showDeleteAlert() {
-    confirm("Silmek İstediğinize Eminmisinz");
-  },
     openOdmModalComponent() {
       this.$refs.odmModalComponent.show("odm");
     },
@@ -138,11 +135,9 @@ export default {
       this.$refs.odmModalComponent.hide("odm");
     },
     openCancelModalComponent() {
-      this.$refs.detailModalComponent.hide("detail");
       this.$refs.cancelModalComponent.show("cancel");
     },
     closeCancelModalComponent() {
-      this.$refs.detailModalComponent.show("detail");
       this.$refs.cancelModalComponent.hide("cancel");
     },
   },

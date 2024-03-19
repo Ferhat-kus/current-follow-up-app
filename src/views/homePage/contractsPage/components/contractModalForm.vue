@@ -11,12 +11,12 @@
       label="Sözleşme Bedeli"
     />
     <div
-      class="md:flex md:flex-row flex flex-col w-full items-center md:my-3 px-4"
+      class="md:flex md:flex-row flex flex-col  w-full items-center md:my-3 px-5"
     >
       <div
-        class="md:flex md:justify-between w-full justify-center items-center md:my-0 my-7"
+        class="md:flex  md:justify-between  w-full  justify-center items-center md:my-0 my-7"
       >
-        <div class="flex w-2/4">
+        <div class="md:flex md:w-2/4">
           <Button
             v-show="reviewButton"
             :img-show="false"
@@ -27,7 +27,7 @@
             @button-click="review"
           />
         </div>
-        <div class="flex">
+        <div class="md:flex">
           <Button
             :img-show="false"
             className="py-2 px-5 md:mx-4 bg-red"

@@ -44,10 +44,10 @@
         <template v-slot:form>
           <companiesModal
             :company="company"
+            @contractAdd=""
             @close="closeModal"
-            @save="createCompany"
+            @save="save"
           />
-          <!-- :submitForm="" -->
         </template>
       </customModal>
     </div>
@@ -63,7 +63,7 @@ import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
 import companiesModal from "./components/companiesModal.vue";
 import customModal from "@/components/customModal.vue";
-import { api } from "@/networking/AxiosInstance.js";
+import { api } from "@/plugins/AxiosInstance.js";
 export default {
   components: {
     companiesModal,
@@ -78,6 +78,7 @@ export default {
   data() {
     return {
       modalTitle: "",
+      save: "",
       companies: [],
       company: {
         companyName: "",
@@ -86,6 +87,7 @@ export default {
         mail: "",
         taxAdress: "",
         taxNo: "",
+        balance: "",
       },
     };
   },
@@ -93,10 +95,10 @@ export default {
     filteredCompanies() {
       return this.companies.map((company) => {
         const {
-          bills,
-          contract,
           companyAdress,
           taxAdress,
+          bills,
+          contract,
           ...filteredCompany
         } = company;
         return filteredCompany;
@@ -107,14 +109,16 @@ export default {
     this.getCompanies();
   },
   methods: {
+    // Listeleme
     async getCompanies() {
       try {
-        const response = await api().get("/companies");
+        const response = await api().get("/conpanies");
         this.companies = response.data;
       } catch (error) {
         console.error(error);
       }
     },
+    // Oluşturma
     async createCompany() {
       try {
         const response = await api().post("/companies", {
@@ -124,24 +128,53 @@ export default {
           mail: this.company.mail,
           taxAdress: this.company.taxAdress,
           taxNo: this.company.taxNo,
+          balance: this.company.balance || "Henüz bakiye Yok",
         });
-        // Yeni şirketin ID'sini alabiliriz
         const newCompanyId = response.data.id;
+        this.getCompanies();
+        this.closeModal();
 
-        // Yerel verileri güncelledikten sonra sayfanın yenilenmesi gerekiyorsa:
-        this.getCompanies(); // Yerel verileri güncellemek için API'den tüm şirketleri yeniden alır
-        this.closeModal(); // Modalı kapatır
-
-        // Kullanıcıya eklenen şirketi göstermek için bir geribildirim sağlayabiliriz
-        alert(`Yeni şirket başarıyla eklendi! Şirket ID: ${newCompanyId}`);
+        // alert(`Yeni şirket başarıyla eklendi! Şirket ID: ${newCompanyId}`);
       } catch (error) {
         console.error("Şirket ekleme hatası:", error);
       }
     },
+    // secilen firmanın bilgilerini getirme
+    async getSelectedCompanies() {
+      const { id } = this.$route.params;
+      try {
+        const response = await api().get(`${"/companies"}/${id}`);
+        this.company = response.data;
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    },
+    // getirilen firma bilgilerini güncel olrak gönderme
+    async updateCompany() {
+      const { id } = this.$route.params;
+      try {
+        await api().put(`${"/companies"}/${id}`, {
+          companyName: this.company.companyName,
+          companyAdress: this.company.companyAdress,
+          phoneNumber: this.company.phoneNumber,
+          mail: this.company.mail,
+          taxAdress: this.company.taxAdress,
+          taxNo: this.company.taxNo,
+          balance: this.company.balance || "Henüz bakiye Yok",
+        });
+        this.getCompanies();
+        this.closeModal();
+      } catch (error) {
+        console.error("Error:", error);
+        // Hata durumunda gerekli işlemleri yapabilirsiniz.
+      }
+    },
     openModal(action) {
       if (action === "add") {
+        this.save = this.createCompany;
         this.modalTitle = "Firma Ekle";
       } else if (action === "detail") {
+        this.save = this.updateCompany;
         this.modalTitle = "Firma Detayları";
       }
       this.$refs.modalComponent.show("add");

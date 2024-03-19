@@ -1,27 +1,30 @@
 <template>
-  <div>
-    <div class="flex">
-      <Input label="Firma Ünvanı" />
-      <Input label="Firma Adresi" />
+  <form class="flex flex-col">
+    <div class="md:flex items-center justify-center">
+      <Input v-model="myCompany.companyName" label="Firma Ünvanı" />
+      <Input v-model="myCompany.companyAdress" label="Firma Adresi" />
     </div>
-    <div class="flex">
-      <Input label="Vergi Dairesi" />
-      <Input label="Vergi No" />
+    <div class="md:flex">
+      <Input v-model="myCompany.taxAdress" label="Vergi Dairesi" />
+      <Input v-model="myCompany.taxNo" label="Vergi No" />
     </div>
-    <div class="flex">
-      <Input label="Telefon No" />
-      <Input label="Mail" />
+    <div class="md:flex">
+      <Input v-model="myCompany.phoneNumber" label="Telefon No" />
+      <Input v-model="myCompany.email" label="Mail" />
     </div>
-    <div class="flex justify-end pr-4">
-      <Button
-        :img-show="false"
-        className="py-2 px-4"
-        :src="require('@/assets/icons/plus.svg')"
-        :to="to"
-        title="kaydet"
-      />
+    <div class="md:pr-0 pr-8 pl-2 w-full flex items-start justify-end">
+      <div class="md: w-full md:w-auto justify-end md:pr-2">
+        <Button
+          :img-show="false"
+          className="py-2 px-4"
+          :src="require('@/assets/icons/plus.svg')"
+          :to="to"
+          title="kaydet"
+          @button-click="submit"
+        />
+      </div>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -32,9 +35,11 @@ export default {
     Input,
     Button,
   },
-  props:{
-    to: String,
-  
+  props:['to', 'myCompany',],
+  methods:{
+    submit() {
+      this.$emit("submit", this.myCompany);
+    },
   }
 };
 </script>

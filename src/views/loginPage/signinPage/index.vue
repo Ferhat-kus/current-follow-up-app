@@ -18,7 +18,7 @@
     <!-- Login -->
     <div
       id="login"
-      class="flex flex-col items-center md:h-screen justify-center fixed z-10 top-1/3 left-1/2 -translate-y-1/3 -translate-x-2/4 w-full pt-4 px-8 pb-11 rounded-3xl bg-white text-center md:top-0 md:right-0 md:left-auto md:translate-x-0 md:translate-y-0 md:m-0 md:w-2/5 md:rounded-tl-3xl md:rounded-bl-3xl md:rounded-none"
+      class="flex flex-col items-center md:h-screen h-full justify-center fixed z-10 top-1/3 left-1/2 -translate-y-1/3 -translate-x-2/4 w-full pt-4 px-8 pb-11 md:rounded-3xl bg-white text-center md:top-0 md:right-0 md:left-auto md:translate-x-0 md:translate-y-0 md:m-0 md:w-2/5 md:rounded-tl-3xl md:rounded-bl-3xl"
     >
       <img
         class="w-80 h-36 aspect-square my-7"

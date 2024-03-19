@@ -28,12 +28,14 @@
         v-if="isShow"
         @click="closeSidebar"
       >
-        X
+        <i class="bx text-white text-3xl bx-x"></i>
       </div>
     </div>
 
     <!-- Sidebar content -->
-    <div class="flex flex-col h-4/5 justify-between text-md text-white py-2 overflow-hidden">
+    <div
+      class="flex flex-col h-4/5 justify-between text-md text-white py-2 overflow-hidden"
+    >
       <!-- Sidebar links -->
       <div>
         <router-link

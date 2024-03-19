@@ -1,20 +1,29 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
+import VuexPersist from "vuex-persist";
 
-Vue.use(Vuex)
+const vuexPersist = new VuexPersist({
+  key: "vuex",
+  storage: window.localStorage,
+})
+
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    isSidebar: true
+    isSidebar: true,
+    myCompanyId: null,
   },
-  
   mutations: {
     toggleSidebar(state) {
-      state.isSidebar =!state.isSidebar
-    }
+      state.isSidebar = !state.isSidebar;
+    },
+    setMyCompanyId(state, id) {
+      state.myCompanyId = id;
+    },
   },
   actions: {
+
   },
-  modules: {
-  }
-})
+  plugins: [vuexPersist.plugin],
+});

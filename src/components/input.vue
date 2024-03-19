@@ -3,7 +3,8 @@
     <label
       for="inputField"
       class="block my-2 text-sm font-medium text-gray-700"
-    >{{ label }}</label>
+      >{{ label }}</label
+    >
 
     <div class="relative w-full flex flex-col">
       <div class="flex">
@@ -15,12 +16,14 @@
           {{ selectedOption }}
         </div>
         <input
+          
           id="inputField"
           :value="value"
           @input="updateValue($event.target.value)"
           :class="className"
           class="bg-lightGray w-full px-3 py-2 text-sm font-medium rounded-md focus:outline-none"
           :type="type"
+          autocomplete="off"
         />
       </div>
 

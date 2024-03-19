@@ -13,12 +13,12 @@
           </div>
           <div class="flex items-center justify-end px-2  my-3">
           <div
-            class="flex w-full justify-end md:px-2 px-6 md:justify-end items-center "
+            class="md:flex w-full justify-end px-2  md:justify-end items-center "
           >
-          <div class="mx-2">
+          <div class="md:mx-2">
             <Button
               :img-show="false"
-              className="py-2 px-5 mx-2  bg-red"
+              className="py-2 px-5 md:mx-2  bg-red"
               :src="require('@/assets/icons/plus.svg')"
               to="#"
               title="İptal"
@@ -28,7 +28,7 @@
           </div>
             <Button
               :img-show="false"
-              className="py-2 px-5 mx-2"
+              className="py-2 px-5 md:mx-2"
               :src="require('@/assets/icons/plus.svg')"
               to="#"
               title="Kaydet"
