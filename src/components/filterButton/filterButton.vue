@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <div class="relative">
       <!-- Dropdown toggle button -->
       <button
@@ -24,21 +24,23 @@
       <!-- Dropdown menu -->
       <div
         v-show="show"
-        class="absolute z-50 w-full flex flex-col items-center right-0 px-2 py-2 mt-2 bg-white border-2 border-darkBlue rounded-md shadow-xl"
+        @click="show = !show"
+        class="flex justify-center items-center bg-slate-300 opacity-50 fixed inset-0 z-40"
+      ></div>
+
+      <div
+        v-show="show"
+        class="absolute z-50 w-full flex flex-col items-center right-0 px-2 py-1 mt-1 bg-white border-2 border-darkBlue rounded-md shadow-xl"
       >
-        <div
-          class="block w-full py-1 text-base font-semibold text-darkBlue"
-        >
+        <div class="block w-full pt-1 text-base font-semibold text-darkBlue">
           <maxAndMinRangeInput :placeholder="minInput" />
         </div>
-        <!-- <span class="text-darkBlue text-xl font-bold">-</span> -->
-        <div
-          class="block w-full py-1 text-base font-semibold text-darkBlue"
-        >
+        <div class="block w-full py-1 text-base font-semibold text-darkBlue">
           <maxAndMinRangeInput :placeholder="maxInput" />
         </div>
         <button
-          class="flex w-full px-2 py-2   text-base justify-center items-center font-semibold bg-darkBlue text-titleTextColor rounded-md"
+          @click="show = !show"
+          class="flex w-full px-2 py-2 text-base justify-center items-center font-semibold bg-darkBlue text-titleTextColor rounded-md"
         >
           Filtrele
         </button>
@@ -49,7 +51,7 @@
 <script>
 import maxAndMinRangeInput from "./components/maxAndMinRangeInput.vue";
 export default {
-  props: ['maxInput','minInput'],
+  props: ["maxInput", "minInput"],
   components: {
     maxAndMinRangeInput,
   },

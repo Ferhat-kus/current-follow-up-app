@@ -25,7 +25,7 @@
           @button-click="submit"
           :imgShow="false"
           className="md:w-full flex md:items-center md:justify-center py-2"
-          to="/setuppage"
+          to="/setup"
           title="Kayıt Ol"
         />
       </div>

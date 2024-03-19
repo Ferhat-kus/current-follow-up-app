@@ -28,7 +28,7 @@
             <filterButton minInput="Min - Bakiye" maxInput="Max - Bakiye" />
           </div>
           <div class="w-full my-1">
-            <searchInput :src="require('@/assets/icons/search.svg')" />
+            <searchInput  />
           </div>
         </div>
       </div>

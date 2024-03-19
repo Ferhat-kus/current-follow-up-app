@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="fixed md:relative h-screen md:bg-lightBlue bg-lightBlue overflow-hidden transition-width ease-in-out duration-300 z-50"
+    class="fixed md:relative h-screen md:bg-lightBlue bg-lightBlue overflow-hidden transition-width ease-in-out duration-300 z-10"
     :class="{
       'md:w-80 w-full': isShow,
       'md:w-16 w-0': !isShow,
