@@ -15,11 +15,11 @@
       {{ selectedOption.label }}
       <i class="ml-auto text-xl bx bx-chevron-down"></i>
     </button>
-    <div v-if="isOpen" class="mt-1 w-full bg-lightGray rounded-md shadow-lg">
+    <div v-if="isOpen" class="absolute mt-1 w-72 z-50  bg-lightGray rounded-md shadow-lg">
       <span
         v-for="(option, index) in options"
         :key="index"
-        class="flex justify-between w-full px-4 py-2 font-semibold text-gray-700 hover:bg-darkGray cursor-pointer"
+        class="flex justify-between w-full px-4 py-1 font-semibold text-gray-700 hover:bg-darkGray cursor-pointer"
         :class="{ 'bg-darkGray': isSelected(option) }"
         @click="selectOption(option)"
       >
@@ -35,7 +35,6 @@ export default {
   props: {
     label: {
       type: String,
-      default: "Kullanıcı",
     },
     selectedValue: { // Yeni özellik (prop) eklendi
       type: String, // veya null olabilir

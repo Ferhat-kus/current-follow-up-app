@@ -5,7 +5,7 @@
         </div>
         <div class="flex items-center justify-end ">
           <div
-            class="flex w-full justify-end px-7 md:justify-end items-center"
+            class="flex w-full justify-end px-5 my-2 md:justify-end items-center"
           >
             <Button
               :img-show="false"
@@ -15,14 +15,14 @@
               title="İptal Et"
               @button-click="save"
             />
-            <Button
+            <!-- <Button
               :img-show="false"
               className="py-2 px-5 mx-2"
               :src="require('@/assets/icons/plus.svg')"
               to="#"
               title="Geri"
               @button-click="close"
-            />
+            /> -->
           </div>
         </div>
       </div>

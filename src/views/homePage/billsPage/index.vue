@@ -52,7 +52,7 @@
       <!-- Fatura Ekle -->
       <customModal :header-title="modalTitle" ref="modalComponent" name="add">
         <template v-slot:form>
-          <billsForm @close="closeModal" />
+          <billsForm />
         </template>
       </customModal>
       <!-- İptal Modal -->
@@ -62,13 +62,13 @@
         name="cancel"
       >
         <template v-slot:form>
-          <cancelForm @close="closeCancelModalComponent" />
+          <cancelForm  />
         </template>
       </customModal>
       <!-- Ödeme Modal -->
       <customModal header-title="Ödeme Ekle" ref="odmModalComponent" name="odm">
         <template v-slot:form>
-          <odmAddForm @close="closeOdmModalComponent" />
+          <odmAddForm />
         </template>
       </customModal>
     </div>

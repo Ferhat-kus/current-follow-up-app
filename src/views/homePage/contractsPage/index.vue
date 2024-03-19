@@ -43,7 +43,7 @@
         name="add"
       >
         <template v-slot:form>
-          <contractModalForm :reviewButton="reviewButton" @close="closeModal" />
+          <contractModalForm :reviewButton="reviewButton" />
         </template>
       </customModal>
       </div>

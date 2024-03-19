@@ -15,7 +15,7 @@
           <div
             class="md:flex w-full justify-end px-2  md:justify-end items-center "
           >
-          <div class="md:mx-2">
+          <!-- <div class="md:mx-2">
             <Button
               :img-show="false"
               className="py-2 px-5 md:mx-2  bg-red"
@@ -25,10 +25,10 @@
               @button-click="close"
             
             />
-          </div>
+          </div> -->
             <Button
               :img-show="false"
-              className="py-2 px-5 md:mx-2"
+              className="py-2 px-5"
               :src="require('@/assets/icons/plus.svg')"
               to="#"
               title="Kaydet"

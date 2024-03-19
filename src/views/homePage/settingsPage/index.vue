@@ -1,8 +1,10 @@
 <template>
   <div class="md:p-10">
-    <pageTitle title="AYARLAR" />
+    <div class="px-2">
+      <pageTitle title="AYARLAR" />
+    </div>
     <div>
-      <Form  :myCompany="myCompany" to="#" />
+      <Form :myCompany="myCompany" to="#" />
     </div>
   </div>
 </template>

@@ -45,7 +45,6 @@
           <companiesModal
             :company="company"
             @contractAdd=""
-            @close="closeModal"
             @save="save"
           />
         </template>

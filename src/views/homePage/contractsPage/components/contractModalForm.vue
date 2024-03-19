@@ -28,14 +28,14 @@
           />
         </div>
         <div class="md:flex">
-          <Button
+          <!-- <Button
             :img-show="false"
             className="py-2 px-5 md:mx-4 bg-red"
             :src="require('@/assets/icons/plus.svg')"
             to="#"
             title="İptal"
             @button-click="close"
-          />
+          /> -->
           <Button
             :img-show="false"
             className="py-2 px-4 "

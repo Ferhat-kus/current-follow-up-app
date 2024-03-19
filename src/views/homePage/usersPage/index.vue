@@ -43,7 +43,7 @@
       />
       <customModal :header-title="modalTitle" ref="usersAddModal" name="user">
         <template v-slot:form>
-          <userForm @close="closeUserAddModal" />
+          <userForm />
         </template>
       </customModal>
     </div>

@@ -5,11 +5,11 @@
           <Input label="Ödeme Tutarı" />
           <descriptionInput label="Açıklama" />
         </div>
-        <div class="flex items-center justify-start md:justify-end px-3  my-3">
+        <div class="flex items-center justify-start md:justify-end px-2  my-3">
           <div
-            class="md:flex w-full justify-start px-2 md:px-6 md:justify-end md:items-center "
+            class="md:flex w-full justify-start px-2  md:justify-end md:items-center "
           >
-          <div class="md:mx-2 ">
+          <!-- <div class="md:mx-2 ">
             <Button
               :img-show="false"
               className="py-2 px-5 md:mx-2  bg-red"
@@ -18,10 +18,10 @@
               title="İptal"
               @button-click="close"
             />
-          </div>
+          </div> -->
             <Button
               :img-show="false"
-              className="py-2 px-5md:mx-2"
+              className="py-2 px-5 md:mx-2"
               :src="require('@/assets/icons/plus.svg')"
               to="#"
               title="Kaydet"

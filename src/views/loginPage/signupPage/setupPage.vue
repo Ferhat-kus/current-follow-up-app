@@ -1,6 +1,9 @@
 <template>
   <div class="md:p-10">
-    <Form @submit="createMyCompany" :myCompany="myCompany" to="/settings" />
+    <div
+      class="flex justify-center items-center bg-slate-200  opacity-40 fixed inset-0 z-40"
+    ></div>
+    <Form @submit="createMyCompany" :myCompany="myCompany" to="/companies" />
   </div>
 </template>
 
@@ -33,7 +36,6 @@ export default {
   methods: {
     // async createMyCompany() {
     //   const { id } = this.$route.params;
-
     //   try {
     //     const response = await api().post(`${"/founder"}/${id}`, {
     //       founderCompany: [
@@ -48,9 +50,7 @@ export default {
     //         },
     //       ],
     //     });
-
     //     console.log("response.data:", response.data); // Veriyi kontrol etmek için eklendi
-
     //     const myCompanyId = response.data[0]._id; // veya response.data[0].id
     //     console.log("id", myCompanyId);
     //     this.$store.commit("setMyCompanyId", myCompanyId);

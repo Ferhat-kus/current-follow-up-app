@@ -27,14 +27,14 @@
       <div
         class="md:flex md:justify-end w-full justify-center items-center md:my-0 my-7"
       >
-        <Button
+        <!-- <Button
           :img-show="false"
           className="py-2 px-5 md:mx-4 bg-red"
           :src="require('@/assets/icons/plus.svg')"
           to="#"
           title="İptal"
           @button-click="close"
-        />
+        /> -->
         <Button
           :img-show="false"
           className="py-2 px-4 "
