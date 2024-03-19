@@ -5,7 +5,7 @@
         <Input label="Firma Ünvanı" />
         <Input type="password" label="Şifre" />
       </div>
-      <div class="my-3 w-fullflex flex-col items-center px-6">
+      <div class="my-3 w-fullflex flex-col items-center md:px-6 px-3" >
         <Button
           :imgShow="false"
           className="md:w-full flex md:items-center md:justify-center py-2"

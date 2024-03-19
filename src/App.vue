@@ -19,7 +19,7 @@ export default {
   },
   data() {
     return {
-      isShow: this.$store.state.isSidebar,
+      isShow: window.innerWidth >= 800 ? this.$store.state.isSidebar : false,
     };
   },
   methods: {
@@ -30,9 +30,15 @@ export default {
     closeSidebar() {
       this.isShow = false;
     },
+    handleResize() {
+      this.isShow = window.innerWidth >= 800 ? this.$store.state.isSidebar : false;
+    },
   },
   created() {
-    console.log(this.$store.state.isSidebar);
+    window.addEventListener("resize", this.handleResize);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.handleResize);
   },
 };
 </script>
