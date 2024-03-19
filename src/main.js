@@ -14,7 +14,7 @@ Vue.use(VModal, {
 
 import commonMixins from "./plugins/commonMixins.js";
 Vue.mixin(commonMixins);
-
+  
 Vue.config.productionTip = false;
 new Vue({
   router,

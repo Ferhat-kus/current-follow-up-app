@@ -13,12 +13,14 @@
         <Input v-model="user.phoneNumber" type="number" label="Telefon" />
         <Input v-model="user.task" label="Görevi" />
       </div>
-      <div class="flex">
-          <Input v-model="user.password" type="password" label="Şifre" />
-        <div class="flex w-full ">
-          <Dropdown :selectedValue="user.authority" label="Yetki" @selected-value="updateUserAuthority" />
+      <div class="flex ">
+        <Input v-model="user.password" type="password" label="Şifre" />
+          <Dropdown
+            :selectedValue="user.authority"
+            label="Yetki"
+            @selected-value="updateUserAuthority"
+          />
         </div>
-      </div>
       <div class="my-3 w-fullflex flex-col items-center px-2">
         <router-link to="/signin" class="underline my-2">Giriş Yap</router-link>
         <Button
