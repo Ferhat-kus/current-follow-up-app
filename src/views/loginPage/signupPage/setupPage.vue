@@ -1,17 +1,17 @@
 <template>
   <div class="md:p-10">
     <div
-      class="flex justify-center items-center bg-slate-200  opacity-40 fixed inset-0 z-40"
+      class="flex justify-center items-center bg-slate-200 opacity-40 fixed inset-0 z-40"
     ></div>
-    <Form @submit="createMyCompany" :myCompany="myCompany" to="/companies" />
+    <div class="relative z-50">
+      <Form @submit="createMyCompany" :myCompany="myCompany" to="/companies" />
+    </div>
   </div>
 </template>
 
 <script>
 import Button from "@/components/button.vue";
 import Form from "@/components/form.vue";
-import router from "@/router";
-import { api } from "@/plugins/AxiosInstance";
 
 export default {
   components: {
@@ -29,37 +29,6 @@ export default {
         email: "",
       },
     };
-  },
-  created() {
-    console.log("iddddddd", this.$route.params);
-  },
-  methods: {
-    // async createMyCompany() {
-    //   const { id } = this.$route.params;
-    //   try {
-    //     const response = await api().post(`${"/founder"}/${id}`, {
-    //       founderCompany: [
-    //         ...(response.data.founderCompany || []), // Önceki öğeleri kopyalayarak yeni öğe ekleyin
-    //         {
-    //           companyName: this.myCompany.companyName,
-    //           companyAdress: this.myCompany.companyAdress,
-    //           taxAdress: this.myCompany.taxAdress,
-    //           taxNo: this.myCompany.taxNo,
-    //           phoneNumber: this.myCompany.phoneNumber,
-    //           email: this.myCompany.email,
-    //         },
-    //       ],
-    //     });
-    //     console.log("response.data:", response.data); // Veriyi kontrol etmek için eklendi
-    //     const myCompanyId = response.data[0]._id; // veya response.data[0].id
-    //     console.log("id", myCompanyId);
-    //     this.$store.commit("setMyCompanyId", myCompanyId);
-    //     this.$router.push({ name: "Settings", params: { id: myCompanyId } });
-    //     console.log("Oluşturulan firma ID:", myCompanyId);
-    //   } catch (error) {
-    //     console.error("Firma ekleme hatası:", error);
-    //   }
-    // },
   },
 };
 </script>

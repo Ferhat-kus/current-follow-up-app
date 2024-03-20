@@ -1,5 +1,5 @@
 <template>
-  <form class="flex flex-col relative z-50">
+  <form class="flex flex-col ">
     <div class="md:flex items-center justify-center">
       <Input v-model="myCompany.companyName" label="Firma Ünvanı" />
       <Input v-model="myCompany.companyAdress" label="Firma Adresi" />
@@ -13,10 +13,10 @@
       <Input v-model="myCompany.email" label="Mail" />
     </div>
     <div class="md:pr-0 pr-6 my-4 pl-2 w-full flex items-center justify-end">
-      <div class="w-full md:w-auto justify-end md:pr-2">
+      <div class="w-full md:w-auto justify-end pr-2">
         <Button
           :img-show="false"
-          className="py-2 px-4"
+          className="py-2 px-4 "
           :src="require('@/assets/icons/plus.svg')"
           :to="to"
           title="kaydet"

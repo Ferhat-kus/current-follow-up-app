@@ -71,6 +71,7 @@ export default {
           authority: this.user.authority,
           founderCompany: [],
         });
+
         console.log("response.data:", response.data); // Veriyi kontrol etmek için eklendi
         const founderId = response.data.id; // veya response.data._id olarak değiştirilebilir
         // this.$router.push({
@@ -78,7 +79,7 @@ export default {
         //   params: { id: founderId },
         // });
         router.push({
-          name: 'Setuppage',
+          name: "Setuppage",
           params: { id: founderId },
         });
         console.log("founderId:", founderId);
