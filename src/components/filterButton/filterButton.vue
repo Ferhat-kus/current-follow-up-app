@@ -25,17 +25,17 @@
       <div
         v-show="show"
         @click="show = !show"
-        class="flex justify-center items-center bg-slate-300 opacity-50 fixed inset-0 z-40"
+        class="flex justify-center items-center opacity-50 fixed inset-0 z-40"
       ></div>
 
       <div
         v-show="show"
-        class="absolute z-50 w-full flex flex-col items-center right-0 px-2 py-1 mt-1 bg-white border-2 border-darkBlue rounded-md shadow-xl"
+        class="absolute z-50 w-full flex flex-col items-center right-0 p-1 mt-1 bg-white border-2 border-darkBlue rounded-md shadow-xl"
       >
-        <div class="block w-full pt-1 text-base font-semibold text-darkBlue">
+        <div class="block w-full pb-1 text-base font-semibold text-darkBlue">
           <maxAndMinRangeInput :placeholder="minInput" />
         </div>
-        <div class="block w-full py-1 text-base font-semibold text-darkBlue">
+        <div class="block w-full pb-1 text-base font-semibold text-darkBlue">
           <maxAndMinRangeInput :placeholder="maxInput" />
         </div>
         <button
@@ -45,13 +45,17 @@
           Filtrele
         </button>
       </div>
+      <div
+        v-show="usersFilterShow"
+        class="absolute z-50 w-full flex flex-col items-center right-0 p-1 mt-1 bg-white border-2 border-darkBlue rounded-md shadow-xl"
+      ></div>
     </div>
   </div>
 </template>
 <script>
 import maxAndMinRangeInput from "./components/maxAndMinRangeInput.vue";
 export default {
-  props: ["maxInput", "minInput"],
+  props: ["maxInput", "minInput", "usersFilterShow"],
   components: {
     maxAndMinRangeInput,
   },

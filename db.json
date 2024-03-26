@@ -1,15 +1,6 @@
 {
   "conpanies": [
-    {
-      "id": 1,
-      "companyName": "Sisgsfdghdfghfrius",
-      "companyAdress": "barbaros hayrettin paşa...",
-      "phoneNumber": "05555555555",
-      "mail": "sirius@info.com",
-      "taxAdress": "barbaros hayrettin paşaaa...",
-      "taxNo": "000000000000",
-      "balance": "1000.00 TL"
-    }
+    
   ],
   "bills": [
     {

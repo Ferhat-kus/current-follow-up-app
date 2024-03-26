@@ -1,9 +1,9 @@
 <template>
   <div class="md:p-10">
-    <div class="px-2">
+    <div >
       <pageTitle title="AYARLAR" />
     </div>
-    <div>
+    <div class="w-full">
       <Form :myCompany="myCompany" to="#" />
     </div>
   </div>

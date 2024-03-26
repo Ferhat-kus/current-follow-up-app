@@ -5,13 +5,15 @@
         <Input label="Firma Ünvanı" />
         <Input type="password" label="Şifre" />
       </div>
-      <div class="my-3 w-fullflex flex-col items-center md:px-6 px-3" >
-        <Button
-          :imgShow="false"
-          className="md:w-full flex md:items-center md:justify-center py-2"
-          to="/companies"
-          title="Giriş Yap"
-        />
+      <div class="my-3 w-full flex flex-col items-center">
+        <div class="w-full">
+          <Button
+            :imgShow="false"
+            className="py-2"
+            to="/companies"
+            title="Giriş Yap"
+          />
+        </div>
         <router-link to="/" class="underline my-2"> Kayıt Ol </router-link>
       </div>
     </form>

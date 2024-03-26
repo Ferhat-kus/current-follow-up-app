@@ -1,11 +1,11 @@
 <template>
   <div class="md:p-10">
     <pageTitle title="FİRMALAR" />
-    <div class="md:my-6">
+    <div class="md:my-7">
       <div
         class="w-full flex md:flex-row flex-col items-center justify-between"
       >
-        <div class="md:w-1/12 w-full">
+        <div class="md:w-1/12 w-full md:my-0 my-2">
           <Button
             :img-show="true"
             className="flex justify-center py-2 items-center"
@@ -15,12 +15,12 @@
             @button-click="openModal('add')"
           />
         </div>
-        <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
-          <div class="md:mx-5 md:w-2/3 w-full my-1">
+        <div class="flex md:flex-row flex-col items-center justify-between w-full md:w-5/12">
+          <div class="md:mx-2 md:w-1/3 w-full my-1">
             <filterButton minInput="Min - Bakiye" maxInput="Max - Bakiye" />
           </div>
           <div class="w-full my-1">
-            <searchInput  />
+            <searchInput />
           </div>
         </div>
       </div>
@@ -44,9 +44,18 @@
         <template v-slot:form>
           <companiesModal
             :company="company"
-            @contractAdd=""
+            @contractAdd="openModal('contract')"
             @save="save"
           />
+        </template>
+      </customModal>
+      <customModal
+        :header-title="modalTitle"
+        ref="contractModalComponent"
+        name="contractAdd"
+      >
+        <template v-slot:form>
+          <contractModalForm />
         </template>
       </customModal>
     </div>
@@ -62,6 +71,7 @@ import filterButton from "@/components/filterButton/filterButton.vue";
 import Table from "@/components/table.vue";
 import companiesModal from "./components/companiesModal.vue";
 import customModal from "@/components/customModal.vue";
+import contractModalForm from "../contractsPage/components/contractModalForm.vue";
 import { api } from "@/plugins/AxiosInstance.js";
 export default {
   components: {
@@ -73,6 +83,7 @@ export default {
     searchInput,
     filterButton,
     customModal,
+    contractModalForm,
   },
   data() {
     return {
@@ -108,6 +119,7 @@ export default {
     this.getCompanies();
   },
   methods: {
+    
     // Listeleme
     async getCompanies() {
       try {
@@ -175,11 +187,15 @@ export default {
       } else if (action === "detail") {
         this.save = this.updateCompany;
         this.modalTitle = "Firma Detayları";
+      } else if (action === "contract") {
+        this.$refs.contractModalComponent.show("contractAdd");
+        this.modalTitle = "Sözleşme Ekle";
       }
       this.$refs.modalComponent.show("add");
     },
     closeModal() {
       this.$refs.modalComponent.hide("add");
+      this.$refs.contractModalComponent.hide("contract");
     },
     detail() {
       if (this.$route.path !== "/bills") {

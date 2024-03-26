@@ -1,6 +1,6 @@
 <template>
   <!-- Form -->
-  <div class="px-2 flex flex-col items-center">
+  <div class="px-4 w-full flex flex-col items-center">
     <Input label="Başlangıç Tarihi" />
     <Input label="Bitiş Tarihi" />
     <descriptionInput label="İçeriği/Konusu" />
@@ -11,7 +11,7 @@
       label="Sözleşme Bedeli"
     />
     <div
-      class="md:flex md:flex-row flex flex-col  w-full items-center md:my-3 px-5"
+      class="md:flex md:flex-row flex flex-col  w-full items-center md:my-3"
     >
       <div
         class="md:flex  md:justify-between  w-full  justify-center items-center md:my-0 my-7"
@@ -28,14 +28,6 @@
           />
         </div>
         <div class="md:flex">
-          <!-- <Button
-            :img-show="false"
-            className="py-2 px-5 md:mx-4 bg-red"
-            :src="require('@/assets/icons/plus.svg')"
-            to="#"
-            title="İptal"
-            @button-click="close"
-          /> -->
           <Button
             :img-show="false"
             className="py-2 px-4 "

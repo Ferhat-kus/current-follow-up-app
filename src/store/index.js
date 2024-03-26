@@ -11,7 +11,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    isSidebar: false,
+    isSidebar: true,
     myCompanyId: null,
   },
   mutations: {

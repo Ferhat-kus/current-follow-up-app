@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col my-3">
+  <div class="flex flex-col my-1">
     <!-- tablo -->
     <div class="md:overflow-x-auto">
       <div class="w-full inline-block align-middle">
@@ -22,25 +22,35 @@
             </thead>
             <!-- Tablo içeriği -->
             <tbody class="divide-y divide-gray-200 cursor-pointer">
+              <tr v-if="displayedItems.length === 0">
+                <td
+                  colspan="100"
+                  class="text-base pt-14 whitespace-nowrap font-semibold text-center items-center justify-center w-full h-full"
+                >
+                  Listelenecek öğe yok
+                </td>
+              </tr>
               <tr v-for="(items, index) in displayedItems" :key="index">
                 <th
                   @click="onRowClicked"
                   scope="col"
-                  class="px-6 py-3 text-xs whitespace-nowrap font-semibold text-left text-textColor border-b border-darkBlue"
+                  class="px-6  py-3 text-xs whitespace-nowrap font-semibold text-left text-textColor border-b border-darkBlue"
                   v-for="(item, index) in items"
                   :key="index"
                 >
                   {{ item }}
                 </th>
-                <th @click="detailClicked" class="border-b border-darkBlue">
-                  <img class="w-5" src="@/assets/icons/edit.svg" alt="" />
-                </th>
                 <th
-                  @click="deleteClicked"
-                  v-show="show"
-                  class="border-b border-darkBlue"
+                  class="py-3 px-6 text-xs  whitespace-nowrap font-semibold text-left text-textColor border-b border-darkBlue"
                 >
-                  <img class="w-5" src="@/assets/icons/trash.svg" alt="" />
+                  <div class="flex items-center justify-around">
+                    <div @click="detailClicked">
+                      <img class="w-5" src="@/assets/icons/edit.svg" alt="" />
+                    </div>
+                    <div @click="deleteClicked" v-show="show">
+                      <img class="w-4" src="@/assets/icons/trash.svg" alt="" />
+                    </div>
+                  </div>
                 </th>
               </tr>
             </tbody>
@@ -50,7 +60,8 @@
     </div>
     <!-- Sayfa sayısı ve pagination -->
     <div class="flex justify-between mt-2">
-      <div>Toplam {{ totalPages }} sayfa var</div>
+      <div v-if="totalPages > 0">Toplam {{ totalPages }} sayfa var</div>
+      <div v-if="totalPages === 0">Öge yok</div>
       <div class="flex">
         <button
           @click="goToPreviousPage"
@@ -154,4 +165,3 @@ export default {
   },
 };
 </script>
-

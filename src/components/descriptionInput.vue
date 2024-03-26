@@ -1,5 +1,5 @@
 <template>
-  <div class="w-11/12 flex flex-col mx-2">
+  <div class="w-full flex flex-col mx-2">
     <label for="inputField" class="block my-2 text-sm font-medium text-gray-700">{{ label }}</label>
     <textarea
       id="inputField"

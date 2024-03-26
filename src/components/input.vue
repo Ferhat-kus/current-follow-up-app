@@ -1,5 +1,5 @@
 <template>
-  <div class="w-11/12 flex flex-col items-start mx-2">
+  <div class="w-full flex flex-col items-start">
     <label
       for="inputField"
       class="block my-2 text-sm font-medium text-gray-700"
@@ -21,7 +21,7 @@
           :value="value"
           @input="updateValue($event.target.value)"
           :class="className"
-          class="bg-lightGray w-full px-3 py-2 text-sm font-medium rounded-md focus:outline-none"
+          class="bg-lightGray w-full px-3   py-2 text-sm font-medium rounded-md focus:outline-none"
           :type="type"
           autocomplete="off"
         />

@@ -4,19 +4,20 @@
     :height="modalHeightForMobile"
     :width="modalWidthForMobile"
     :scrollable="true"
-    :ref="ref"
     :adaptive="true"
     class="modal"
   >
-    <div class="rounded-sm">
+    <div class="rounded-sm flex flex-col w-full items-center justify-center">
       <header
-        class="bg-darkBlue w-full py-3 px-4 rounded-t-sm flex items-center justify-between"
+        class="bg-darkBlue py-3 px-4 rounded-t-sm flex w-full items-center justify-center"
       >
-        <div class="text-titleTextColor text-sm font-semibold">
-          {{ headerTitle }}
-        </div>
-        <div @click="hide">
-          <img src="@/assets/icons/close.svg" alt="" />
+        <div class="w-full flex  items-center justify-between">
+          <div class="text-titleTextColor text-base font-semibold">
+            {{ headerTitle }}
+          </div>
+          <div @click="hide">
+            <img src="@/assets/icons/close.svg" alt="" />
+          </div>
         </div>
       </header>
       <slot name="form"></slot>
@@ -27,7 +28,6 @@
 <script>
 export default {
   props: {
-    ref: String,
     name: String,
     headerTitle: String,
   },

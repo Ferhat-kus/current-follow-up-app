@@ -1,11 +1,11 @@
 <template>
   <div class="md:p-10">
     <pageTitle title="sözleşmeler" />
-    <div class="md:my-6">
+    <div class="md:my-7">
       <div
         class="w-full flex md:flex-row flex-col items-center justify-between"
       >
-        <div class="md:w-1/12 w-full">
+        <div class="md:w-1/12 w-full md:my-0 my-2">
           <Button
             :img-show="true"
             className="py-2"
@@ -15,12 +15,12 @@
             @button-click="openModal('add')"
           />
         </div>
-        <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
-          <div class="md:mx-5 md:w-2/3 w-full my-1">
+        <div class="flex md:flex-row flex-col items-center justify-between w-full md:w-5/12">
+          <div class="md:mx-2 md:w-1/3 w-full my-1">
             <filterButton minInput="Min - Bakiye" maxInput="Max - Bakiye" />
           </div>
           <div class="w-full my-1">
-            <searchInput  />
+            <searchInput />
           </div>
         </div>
       </div>

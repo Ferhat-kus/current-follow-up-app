@@ -1,5 +1,5 @@
 <template>
-  <div class="w-11/12 mx-2">
+  <div class="w-full cursor-pointer">
     <div class="w-full">
       <label
         for="inputField"
@@ -10,13 +10,14 @@
     <multiselect
       v-model="selectedOption"
       :options="options"
+      label="name"
       :optionHeight="30"
-      deselectLabel="Kaldır"
       selectLabel="Seç"
       selectedLabel="Seçili"
-      track-by="value"
-      label="label"
-      :placeholder="selectedOption ? selectedOption : options[2].label"
+      deselectLabel="Kaldır"
+      track-by="name"
+      :show-labels="true"
+      :placeholder="selectedOption.name"
       class="w-full"
       :close-on-select="true"
       @close="isOpen = false"
@@ -29,7 +30,6 @@
 
 <script>
 import Multiselect from "vue-multiselect";
-
 export default {
   components: {
     Multiselect,
@@ -45,12 +45,12 @@ export default {
   },
   data() {
     return {
-      selectedOption: { label: "Kullanıcı", value: "Kullanıcı" },
+      selectedOption: { name: "Kullanıcı", value: "Kullanıcı" },
       isOpen: false,
       options: [
-        { label: "Kurucu", value: "Kurucu" },
-        { label: "Yönetici", value: "Yönetici" },
-        { label: "Kullanıcı", value: "Kullanıcı" },
+        { name: "Kurucu", value: "Kurucu" },
+        { name: "Yönetici", value: "Yönetici" },
+        { name: "Kullanıcı", value: "Kullanıcı" },
       ],
     };
   },
@@ -65,22 +65,25 @@ export default {
   border-color: red;
   color: black;
   font-weight: 500;
+  margin-bottom: 10px;
 }
-.multiselect__tags{
+.multiselect__tags {
   padding-left: 6px;
   border: none;
   min-height: 30px;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
 }
 .multiselect__single {
-  background-color: #EBEBEB   ;
+  background-color: #ebebeb;
   color: black;
   font-weight: 500;
+  min-height: 30px;
+  margin-bottom: 0px;
 }
-.multiselect__option{
+.multiselect__option {
   color: black;
 }
-.multiselect__option:hover{
+.multiselect__option:hover {
   color: black;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="flex w-screen">
-    <Sidebar :isShow="isShow" @close-sidebar="closeSidebar" />
-    <Navbar :isShow="isShow" @toggleMenu="toggleMenu">
+    <Sidebar :isShow="$store.state.isSidebar" @close-sidebar="closeSidebar" />
+    <Navbar :isShow="$store.state.isSidebar" @toggleMenu="toggleSidebar">
       <template v-slot:routerView>
         <router-view />
       </template>
@@ -12,26 +12,26 @@
 <script>
 import Sidebar from "@/partitions/sidebar.vue";
 import Navbar from "@/partitions/navbar.vue";
+
 export default {
   components: {
     Sidebar,
     Navbar,
   },
-  data() {
-    return {
-      isShow: window.innerWidth >= 800 ? this.$store.state.isSidebar : false,
-    };
-  },
   methods: {
-    toggleMenu() {
-      this.isShow = !this.isShow;
-      console.log(this.$store.state.isSidebar);
+    toggleSidebar() {
+      this.$store.commit('toggleSidebar');
+      console.log('toggleSidebar', this.$store.state.isSidebar);
     },
     closeSidebar() {
-      this.isShow = false;
+      this.$store.state.isSidebar = false;
     },
     handleResize() {
-      this.isShow = window.innerWidth >= 800 ? this.$store.state.isSidebar : false;
+      if (window.innerWidth >= 800) {
+        this.$store.state.isSidebar = true;
+      } else {
+        this.$store.state.isSidebar = false;
+      }
     },
   },
   created() {

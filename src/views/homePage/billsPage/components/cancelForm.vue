@@ -1,11 +1,11 @@
 <template>
-      <div class="px-2 flex flex-col justify-center ">
+      <form class="px-4 w-full flex flex-col justify-center ">
         <div class="flex flex-col items-center my-3">
           <descriptionInput label="Açıklama" />
         </div>
-        <div class="flex items-center justify-end ">
+        <div class="w-full flex items-center justify-end ">
           <div
-            class="flex w-full justify-end px-5 my-2 md:justify-end items-center"
+            class="flex w-full justify-end  my-2 md:justify-end items-center"
           >
             <Button
               :img-show="false"
@@ -15,17 +15,9 @@
               title="İptal Et"
               @button-click="save"
             />
-            <!-- <Button
-              :img-show="false"
-              className="py-2 px-5 mx-2"
-              :src="require('@/assets/icons/plus.svg')"
-              to="#"
-              title="Geri"
-              @button-click="close"
-            /> -->
           </div>
         </div>
-      </div>
+      </form>
 </template>
 
 <script>

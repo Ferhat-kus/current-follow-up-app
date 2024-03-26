@@ -1,38 +1,54 @@
 <template>
-  <div>
-    <form id="form" class="w-full flex flex-col justify-between">
-      <div class="flex">
+  <form id="form" class="w-full flex flex-col items-center justify-between">
+    <div class="flex w-full">
+      <div class="w-1/2 mr-2">
         <Input v-model="user.name" label="Adı" />
+      </div>
+      <div class="w-1/2 ml-2">
         <Input v-model="user.surname" label="Soyadı" />
       </div>
-      <div class="flex">
+    </div>
+    <div class="flex w-full">
+      <div class="w-1/2 mr-2">
         <Input v-model="user.userName" label="Kullanıcı Adı" />
+      </div>
+      <div class="w-1/2 ml-2">
         <Input v-model="user.email" type="email" label="Mail" />
       </div>
-      <div class="flex">
+    </div>
+    <div class="flex w-full">
+      <div class="w-1/2 mr-2">
         <Input v-model="user.phoneNumber" type="number" label="Telefon" />
+      </div>
+      <div class="w-1/2 ml-2">
         <Input v-model="user.task" label="Görevi" />
       </div>
-      <div class="flex ">
+    </div>
+    <div class="flex w-full">
+      <div class="w-1/2 mr-2">
         <Input v-model="user.password" type="password" label="Şifre" />
-          <Dropdown
-            :selectedValue="user.authority"
-            label="Yetki"
-            @selected-value="updateUserAuthority"
-          />
-        </div>
-      <div class="my-3 w-fullflex flex-col items-center px-2">
-        <router-link to="/signin" class="underline my-2">Giriş Yap</router-link>
+      </div>
+      <div class="w-1/2 ml-2">
+        <Dropdown
+          :selectedValue="user.authority"
+          label="Yetki"
+          @selected-value="updateUserAuthority"
+        />
+      </div>
+    </div>
+    <div class="my-3 w-full flex flex-col items-center ">
+      <router-link to="/signin" class="underline my-2">Giriş Yap</router-link>
+      <div class="w-full">
         <Button
           @button-click="submit"
           :imgShow="false"
-          className="md:w-full flex md:items-center md:justify-center py-2"
+          className="py-2"
           to="/setup"
           title="Kayıt Ol"
         />
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
 </template>
 
 <script>

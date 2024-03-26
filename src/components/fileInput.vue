@@ -1,11 +1,17 @@
 <template>
-  <div class="w-11/12 flex flex-col items-start mx-2">
-    <label for="inputField" class="block my-2 text-sm font-medium text-gray-700">{{ label }}</label>
-    <div class="bg-lightGray flex items-center w-full text-sm font-medium rounded-md focus:outline-none"
+  <div class="w-full flex flex-col items-start mx-2">
+    <label
+      for="inputField"
+      class="block my-2 text-sm font-medium text-gray-700"
+      >{{ label }}</label
+    >
+    <div
+      class="bg-lightGray flex items-center w-full text-sm font-medium rounded-md focus:outline-none"
       @dragover.prevent
       ref="inputContainer"
       @drop="handleDrop"
-      @click="openFileInput">
+      @click="openFileInput"
+    >
       <input
         ref="fileInput"
         id="inputField"
@@ -15,7 +21,11 @@
         @change="handleFileChange"
       />
       <div class="bg-darkGray rounded-l-md py-2 px-4 mr-3">Dosya Seç</div>
-      <p>{{ selectedFileName ? selectedFileName : 'Sürükle ve bırak ya da tıkla.'}}</p>
+      <p>
+        {{
+          selectedFileName ? selectedFileName : "Sürükle ve bırak ya da tıkla."
+        }}
+      </p>
     </div>
   </div>
 </template>

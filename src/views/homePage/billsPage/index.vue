@@ -1,34 +1,40 @@
 <template>
   <div class="md:p-10">
     <pageTitle title="FATURALAR" />
-    <div class="md:my-5">
+    <div class="md:my-7">
       <div
         class="w-full flex md:flex-row flex-col items-center justify-between"
       >
-        <div class="md:w-3/12 w-full md:flex">
-          <Button
-            :img-show="true"
-            className="mr-5 py-2"
-            :src="require('@/assets/icons/plus.svg')"
-            to="#"
-            title="ODM Ekle"
-            @button-click="openOdmModalComponent"
-          />
-          <Button
-            :img-show="true"
-            imgClass="md:mr-0 mr-5"
-            :src="require('@/assets/icons/plus.svg')"
-            to="#"
-            title="Ekle"
-            @button-click="openModal('add')"
-          />
+        <div class="md:w-3/12 w-full flex items-center md:my-0 my-2 justify-between">
+          <div class="md:w-1/3 w-2/3 mr-2">
+            <Button
+              :img-show="true"
+              className="py-2"
+              :src="require('@/assets/icons/plus.svg')"
+              to="#"
+              title="Ekle"
+              @button-click="openModal('add')"
+            />
+          </div>
+          <div class="md:w-1/2 w-2/3 ml-2">
+            <Button
+              :img-show="true"
+              className="py-2"
+              :src="require('@/assets/icons/plus.svg')"
+              to="#"
+              title="ODM Ekle"
+              @button-click="openOdmModalComponent"
+            />
+          </div>
         </div>
-        <div class="flex md:flex-row flex-col items-center w-full md:w-2/6">
-          <div class="md:mx-5 md:w-2/3 w-full my-1">
+        <div
+          class="flex md:flex-row flex-col items-center justify-between w-full md:w-5/12"
+        >
+          <div class="md:mx-2 md:w-1/3 w-full my-1">
             <filterButton minInput="Min - Bakiye" maxInput="Max - Bakiye" />
           </div>
           <div class="w-full my-1">
-            <searchInput  />
+            <searchInput />
           </div>
         </div>
       </div>
@@ -41,8 +47,6 @@
           'fatura tarihi',
           'ödeme tarihi',
           '',
-          '',
-
         ]"
         :bodycolumns="bills"
         @row-clicked="openModal('detail')"
@@ -62,7 +66,7 @@
         name="cancel"
       >
         <template v-slot:form>
-          <cancelForm  />
+          <cancelForm />
         </template>
       </customModal>
       <!-- Ödeme Modal -->
@@ -123,7 +127,6 @@ export default {
         this.modalTitle = "Fatura Detayları";
       }
       this.$refs.modalComponent.show("add");
-      
     },
     closeModal() {
       this.$refs.modalComponent.hide("add");

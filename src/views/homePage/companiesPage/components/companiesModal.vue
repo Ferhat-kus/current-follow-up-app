@@ -1,48 +1,62 @@
 <template>
-  <form @submit.prevent="submitForm" class="px-2 flex flex-col md:my-0 my-3">
-    <div class="flex md:my-0 my-2">
-      <Input v-model="company.companyName" label="Firma Ünvanı" />
+  <form
+    @submit.prevent="submitForm"
+    class="px-4 w-full flex flex-col md:my-0 my-3 items-center justify-center"
+  >
+    <div
+      class="flex w-full md:flex-row flex-col md:my-0 items-center justify-center">
+      <div class="md:md:w-1/2 w-full md:mr-2">
+        <Input v-model="company.companyName" label="Firma Ünvanı" />
+      </div>
+      <div class="md:w-1/2 w-full md:ml-2">
       <Input v-model="company.companyAdress" label="Firma Adresi" />
     </div>
-    <div class="flex md:my-0 my-2">
-      <Input v-model="company.phoneNumber" label="Telefon No" />
-      <Input v-model="company.mail" label="Mail" />
-    </div>
-    <div class="flex md:my-0 my-2">
-      <Input v-model="company.taxAdress" label="Vergi Adresi" />
-      <Input v-model="company.taxNo" label="Vergi No" />
     </div>
     <div
-      class="md:flex md:flex-row flex flex-col w-full items-center justify-between md:my-2 px-2"
+      class="flex w-full md:flex-row flex-col md:my-0 items-center justify-center"
     >
-      <div class="md:w-5/12 w-full md:my-0 my-3">
+    <div class="md:w-1/2 w-full md:mr-2">
+      <Input v-model="company.phoneNumber" label="Telefon No" />
+    </div>
+    <div class="md:w-1/2 w-full md:ml-2">
+      <Input v-model="company.mail" label="Mail" />
+    </div>
+    </div>
+    <div
+      class="flex w-full md:flex-row flex-col md:my-0 items-center justify-center"
+    >
+    <div class="md:w-1/2 w-full md:mr-2">
+      <Input v-model="company.taxAdress" label="Vergi Adresi" />
+    </div>
+    <div class="md:w-1/2 w-full md:ml-2">
+      <Input v-model="company.taxNo" label="Vergi No" />
+    </div>
+    </div>
+    <div
+      class="md:flex flex md:flex-row flex-col w-full items-center justify-between md:my-2"
+    >
+      <div class="md:w-5/12 w-full md:my-0 my-3 px-0">
         <Button
           :img-show="false"
           className="py-2 px-5 whitespace-nowrap bg-opacBlue"
           :src="require('@/assets/icons/plus.svg')"
           to="#"
           title="Sözleşme Ekle"
-          @click="contractAdd"
+          @button-click="contractAdd"
         />
       </div>
-      <div class="md:flex md:justify-end w-full justify-center items-center">
-        <!-- <Button
-          :img-show="false"
-          className="py-2 px-5 md:my-0 my-3 md:mx-4 bg-red"
-          :src="require('@/assets/icons/plus.svg')"
-          to="#"
-          title="İptal"
-          @button-click="close"
-        /> -->
+      <div
+        class="md:flex md:justify-end w-full justify-center items-center px-0"
+      >
         <Button
-          buttontype="submit"
+          Buttontype="submit"
           :img-show="false"
-          className="py-2 md:my-0 my-3 px-4 "
+          className="py-2 md:my-0  "
           :src="require('@/assets/icons/plus.svg')"
           to="#"
           title="kaydet"
           @button-click="save"
-          />
+        />
       </div>
     </div>
   </form>
@@ -66,7 +80,7 @@ export default {
       this.$emit("save");
     },
     contractAdd() {
-      this.$emit("contractAdd");
+      this.$emit("contractAdd", true);
     },
   },
 };
