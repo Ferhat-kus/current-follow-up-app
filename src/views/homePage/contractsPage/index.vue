@@ -15,8 +15,8 @@
             @button-click="openModal('add')"
           />
         </div>
-        <div class="flex md:flex-row flex-col items-center justify-between w-full md:w-5/12">
-          <div class="md:mx-2 md:w-1/3 w-full my-1">
+        <div class="flex md:flex-row flex-col items-center justify-between w-full md:w-6/12">
+          <div class="md:mx-2 md:w-2/4 w-full my-1">
             <filterButton minInput="Min - Bakiye" maxInput="Max - Bakiye" />
           </div>
           <div class="w-full my-1">

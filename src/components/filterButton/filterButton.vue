@@ -30,14 +30,10 @@
 
       <div
         v-show="show"
-        class="absolute z-50 w-full flex flex-col items-center right-0 p-1 mt-1 bg-white border-2 border-darkBlue rounded-md shadow-xl"
+        class="absolute z-50 w-full flex flex-col items-center right-0 p-2 mt-1 bg-white border-2 border-darkBlue rounded-md shadow-xl"
       >
-        <div class="block w-full pb-1 text-base font-semibold text-darkBlue">
           <maxAndMinRangeInput :placeholder="minInput" />
-        </div>
-        <div class="block w-full pb-1 text-base font-semibold text-darkBlue">
           <maxAndMinRangeInput :placeholder="maxInput" />
-        </div>
         <button
           @click="show = !show"
           class="flex w-full px-2 py-2 text-base justify-center items-center font-semibold bg-darkBlue text-titleTextColor rounded-md"

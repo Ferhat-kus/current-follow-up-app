@@ -1,6 +1,6 @@
 <template>
       <form class="px-4 w-full flex flex-col justify-center ">
-        <div class="flex flex-col items-center my-3">
+        <div class="flex flex-col items-center my-1">
           <descriptionInput label="Açıklama" />
         </div>
         <div class="w-full flex items-center justify-end ">

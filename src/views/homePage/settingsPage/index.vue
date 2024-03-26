@@ -3,7 +3,7 @@
     <div >
       <pageTitle title="AYARLAR" />
     </div>
-    <div class="w-full">
+    <div class="w-full md:my-7">
       <Form :myCompany="myCompany" to="#" />
     </div>
   </div>

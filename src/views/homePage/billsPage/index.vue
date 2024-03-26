@@ -5,8 +5,8 @@
       <div
         class="w-full flex md:flex-row flex-col items-center justify-between"
       >
-        <div class="md:w-3/12 w-full flex items-center md:my-0 my-2 justify-between">
-          <div class="md:w-1/3 w-2/3 mr-2">
+        <div class="md:w-1/4 w-full flex items-center md:my-0 my-2 justify-between ">
+          <div class="md:w-full w-2/3 mr-2 ">
             <Button
               :img-show="true"
               className="py-2"
@@ -16,9 +16,10 @@
               @button-click="openModal('add')"
             />
           </div>
-          <div class="md:w-1/2 w-2/3 ml-2">
+          <div class="md:w-full w-2/3 ">
             <Button
               :img-show="true"
+              icon-class="mr-2"
               className="py-2"
               :src="require('@/assets/icons/plus.svg')"
               to="#"
@@ -27,10 +28,8 @@
             />
           </div>
         </div>
-        <div
-          class="flex md:flex-row flex-col items-center justify-between w-full md:w-5/12"
-        >
-          <div class="md:mx-2 md:w-1/3 w-full my-1">
+        <div class="flex md:flex-row flex-col items-center justify-between w-full md:w-6/12">
+          <div class="md:mx-2 md:w-2/4 w-full my-1">
             <filterButton minInput="Min - Bakiye" maxInput="Max - Bakiye" />
           </div>
           <div class="w-full my-1">

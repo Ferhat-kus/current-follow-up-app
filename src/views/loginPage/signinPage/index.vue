@@ -21,7 +21,7 @@
       class="flex flex-col items-center md:h-screen h-full justify-center fixed z-10 top-1/3 left-1/2 -translate-y-1/3 -translate-x-2/4 w-full pt-4 px-8 pb-11 md:rounded-3xl bg-white text-center md:top-0 md:right-0 md:left-auto md:translate-x-0 md:translate-y-0 md:m-0 md:w-2/5 md:rounded-tl-3xl md:rounded-bl-3xl"
     >
       <img
-        class="w-80 h-36 aspect-square my-7"
+      class="w-72 aspect-auto my-7"
         src="../../../assets/logo-dark 1.png"
       />
       <h3 class="text-black mt-0 mx-0 mb-2 font-bold text-base">

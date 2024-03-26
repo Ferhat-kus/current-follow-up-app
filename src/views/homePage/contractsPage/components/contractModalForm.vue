@@ -1,11 +1,12 @@
 <template>
   <!-- Form -->
   <div class="px-4 w-full flex flex-col items-center">
-    <Input label="Başlangıç Tarihi" />
-    <Input label="Bitiş Tarihi" />
+    <Input placeholder="01/01/2024" label="Başlangıç Tarihi" />
+    <Input placeholder="01/01/2025" label="Bitiş Tarihi" />
     <descriptionInput label="İçeriği/Konusu" />
     <fileInput label="Sözleşme dosyası" />
     <Input
+    placeholder="1000 TL"
       :dropdownShow="true"
       className="rounded-none rounded-r-md"
       label="Sözleşme Bedeli"

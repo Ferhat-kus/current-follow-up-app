@@ -4,7 +4,7 @@
     <div class="md:overflow-x-auto">
       <div class="w-full inline-block align-middle">
         <div
-          class="md:overflow-y-auto md:overflow-x-auto md:h-[351px] h-80 overflow-scroll border-darkBlue border-2 rounded-lg"
+          class="md:overflow-y-auto md:overflow-x-auto md:h-[360px] h-80 overflow-scroll border-darkBlue border-2 rounded-lg"
         >
           <table class="min-w-full divide-y divide-gray-200">
             <!-- Tablo başlığı -->
@@ -22,10 +22,10 @@
             </thead>
             <!-- Tablo içeriği -->
             <tbody class="divide-y divide-gray-200 cursor-pointer">
-              <tr v-if="displayedItems.length === 0">
+              <tr class="w-full md:h-[299px]" v-if="displayedItems.length === 0">
                 <td
                   colspan="100"
-                  class="text-base pt-14 whitespace-nowrap font-semibold text-center items-center justify-center w-full h-full"
+                  class="text-base whitespace-nowrap font-semibold text-center items-center justify-center w-full h-full"
                 >
                   Listelenecek öğe yok
                 </td>
@@ -41,9 +41,9 @@
                   {{ item }}
                 </th>
                 <th
-                  class="py-3 px-6 text-xs  whitespace-nowrap font-semibold text-left text-textColor border-b border-darkBlue"
+                  class="py-3 md:px-5 px-0 text-xs   whitespace-nowrap font-semibold text-left text-textColor border-b border-darkBlue"
                 >
-                  <div class="flex items-center justify-around">
+                  <div class="flex items-center justify-evenly">
                     <div @click="detailClicked">
                       <img class="w-5" src="@/assets/icons/edit.svg" alt="" />
                     </div>
@@ -60,8 +60,7 @@
     </div>
     <!-- Sayfa sayısı ve pagination -->
     <div class="flex justify-between mt-2">
-      <div v-if="totalPages > 0">Toplam {{ totalPages }} sayfa var</div>
-      <div v-if="totalPages === 0">Öge yok</div>
+      <div v-if="totalPages >= 0">{{ totalPages }} sayfa var</div>
       <div class="flex">
         <button
           @click="goToPreviousPage"
@@ -71,10 +70,10 @@
           <img src="@/assets/icons/leftarrow.svg" alt="" />
         </button>
         <button
-          v-for="pageNumber in totalPages"
+          v-for="pageNumber in totalPages || '0'"
           :key="pageNumber"
           @click="setCurrentPage(pageNumber)"
-          :class="{ 'bg-darkBlue text-white': pageNumber === currentPage }"
+          :class="{ 'bg-darkBlue text-white': pageNumber === currentPage || '0' }"
           class="px-3 py-1 bg-[#7d85c5] hover:bg-darkBlue text-white"
         >
           {{ pageNumber }}

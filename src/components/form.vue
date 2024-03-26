@@ -2,26 +2,26 @@
   <form class="flex flex-col w-full">
     <div class="flex w-full md:flex-row flex-col items-center justify-center">
       <div class="md:w-1/2 w-full md:mr-2">
-        <Input v-model="myCompany.companyName" label="Firma Ünvanı" />
+        <Input v-model="myCompany.companyName" placeholder="Sirius" label="Firma Ünvanı" />
       </div>
       <div class="md:w-1/2 w-full md:ml-2">
-        <Input v-model="myCompany.companyAdress" label="Firma Adresi" />
+        <Input v-model="myCompany.companyAdress" placeholder="barbaros hayrettin paşa mahallesi" label="Firma Adresi" />
       </div>
     </div>
     <div class="flex md:flex-row flex-col items-center justify-center">
       <div class="md:w-1/2 w-full md:mr-2">
-        <Input v-model="myCompany.taxAdress" label="Vergi Dairesi" />
+        <Input v-model="myCompany.taxAdress" placeholder="Esenyurt" label="Vergi Dairesi" />
       </div>
       <div class="md:w-1/2 w-full md:ml-2">
-        <Input v-model="myCompany.taxNo" label="Vergi No" />
+        <Input v-model="myCompany.taxNo" placeholder="123456" label="Vergi No" />
       </div>
     </div>
     <div class="flex md:flex-row flex-col items-center justify-center">
       <div class="md:w-1/2 w-full md:mr-2">
-        <Input v-model="myCompany.phoneNumber" label="Telefon No" />
+        <Input v-model="myCompany.phoneNumber" placeholder="05555555555" label="Telefon No" />
       </div>
       <div class="md:w-1/2 w-full md:ml-2">
-        <Input v-model="myCompany.email" label="Mail" />
+        <Input v-model="myCompany.email" placeholder="siriustedarik6654@gmail.com" label="Mail" />
       </div>
     </div>
     <div class="my-4 w-full flex items-center md:justify-end justify-center">

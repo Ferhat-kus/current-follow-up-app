@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col items-start">
+  <div class="w-full flex flex-col items-start my-1">
     <label
       for="inputField"
       class="block my-2 text-sm font-medium text-gray-700"
@@ -24,6 +24,7 @@
           class="bg-lightGray w-full px-3   py-2 text-sm font-medium rounded-md focus:outline-none"
           :type="type"
           autocomplete="off"
+          :placeholder="placeholder"
         />
       </div>
 
@@ -54,6 +55,7 @@ export default {
     className: String,
     dropdownShow: Boolean,
     value: String,
+    placeholder: String,
   },
   data() {
     return {

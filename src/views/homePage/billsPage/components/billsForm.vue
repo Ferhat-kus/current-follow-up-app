@@ -2,20 +2,20 @@
         <!-- Form -->
         <div class=" flex flex-col w-full px-4 items-center">
           <div class="flex flex-col w-full  items-center justify-center ">
-            <Input label="Şirket Adı" />
-            <Input label="Fatura Tarihi" />
-            <Input label="Fatura No" />
+            <Input placeholder="Sirius" label="Şirket Adı" />
+            <Input placeholder="01/01/2020" label="Fatura Tarihi" />
+            <Input placeholder="123456789012" label="Fatura No" />
             <descriptionInput label="Acıklama" />
           </div>
           <div class="flex  w-full justify-between ">
             <div class="w-1/2 mr-2">
-            <Input label="Fatura Tutarı" />
+            <Input placeholder="1000 TL" label="Fatura Tutarı" />
           </div>
           <div class="w-1/2 ml-2">
-            <Input label="Son Ödeme Tarihi" />
+            <Input placeholder="01/01/2025" label="Son Ödeme Tarihi" />
           </div>
           </div>
-          <div class="flex w-full bg-red items-center justify-end my-3">
+          <div class="flex w-full bg-red items-center justify-end my-2">
           <div
             class="md:flex w-full justify-end  bg-gray-50  md:justify-end items-center "
           >
